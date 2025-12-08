@@ -1,0 +1,276 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = [
+  {
+    number: '001',
+    badge: 'Just Published',
+    badgeColor: 'red',
+    title: 'Securing Cortex Against Prompt Injection',
+    subtitle: '5-Layer Defense Strategy',
+    description: 'Comprehensive security implementation protecting Cortex from prompt injection attacks. Features input validation, access control, audit logging, anomaly detection, and human review workflows.',
+    cta: {
+      text: 'Read Full Article',
+      href: '/posts/cortex-securing-against-prompt-injection-attacks',
+    },
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&auto=format&fit=crop',
+    featured: true,
+  },
+  {
+    number: '002',
+    badge: 'Now Available',
+    badgeColor: 'teal',
+    title: 'DriveIQ',
+    subtitle: 'AI-Powered Vehicle Management',
+    description: 'Track maintenance, set intelligent reminders, and consult your vehicle manual with AI assistance. DriveIQ brings modern technology to vehicle care for your 2018 Toyota 4Runner SR5 Premium.',
+    cta: {
+      text: 'Explore DriveIQ',
+      href: 'https://github.com/ry-ops/DriveIQ',
+    },
+    image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=1200&auto=format&fit=crop',
+    featured: true,
+  },
+  {
+    number: '003',
+    badge: 'Open Source',
+    badgeColor: 'blue',
+    title: 'ATSFlow',
+    subtitle: 'AI-Powered Resume Optimization',
+    description: 'Optimize your resume with AI to match job descriptions and ensure ATS/LPS compatibility. Get hired faster with intelligent resume analysis and recommendations.',
+    cta: {
+      text: 'Try ATSFlow',
+      href: 'https://github.com/ry-ops/ATSFlow',
+    },
+    image: 'https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=1200&auto=format&fit=crop',
+    featured: true,
+  },
+  {
+    number: '004',
+    badge: 'MCP Server',
+    badgeColor: 'purple',
+    title: 'UniFi MCP Server',
+    subtitle: 'UniFi Infrastructure Monitoring',
+    description: 'Comprehensive Model Context Protocol server for UniFi infrastructure monitoring and management. Monitor your network with AI assistance.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/unifi-mcp-server',
+    },
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+  {
+    number: '005',
+    badge: 'MCP Server',
+    badgeColor: 'purple',
+    title: 'Proxmox MCP Server',
+    subtitle: 'Proxmox VE Management',
+    description: 'Manage Proxmox Virtual Environment VMs, containers, storage, and cluster resources through the Model Context Protocol.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/proxmox-mcp-server',
+    },
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+  {
+    number: '006',
+    badge: 'MCP Server',
+    badgeColor: 'purple',
+    title: 'Talos MCP Server',
+    subtitle: 'Talos Linux Cluster Management',
+    description: 'Seamless integration with Talos Linux clusters via native gRPC API. Manage your Kubernetes infrastructure with AI.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/talos-mcp-server',
+    },
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+  {
+    number: '007',
+    badge: 'MCP Server',
+    badgeColor: 'purple',
+    title: 'n8n MCP Server',
+    subtitle: 'Workflow Automation Integration',
+    description: 'Manage your n8n workflows, executions, and credentials through natural language using Claude AI.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/n8n-mcp-server',
+    },
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+  {
+    number: '008',
+    badge: 'MCP Server',
+    badgeColor: 'purple',
+    title: 'Grafana MCP Server',
+    subtitle: 'Grafana Monitoring Integration',
+    description: 'Seamless integration between Claude AI and Grafana\'s HTTP API with A2A protocol support.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/grafana-a2a-mcp-server',
+    },
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+  {
+    number: '009',
+    badge: 'Infrastructure',
+    badgeColor: 'green',
+    title: 'UniFi Cloudflare DDNS',
+    subtitle: 'Dynamic DNS for UniFi',
+    description: 'Cloudflare Worker enabling UniFi devices to dynamically update DNS A/AAAA records automatically.',
+    cta: {
+      text: 'View Project',
+      href: 'https://github.com/ry-ops/unifi-cloudflare-ddns',
+    },
+    image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&auto=format&fit=crop',
+    featured: false,
+  },
+];
+---
+
+<Layout title="Showcase - What's New">
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 md:py-32" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <div class="mb-6">
+          <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+            Just announced
+          </span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6" style="color: var(--text-primary);">
+          What's new?
+        </h1>
+        <p class="text-xl md:text-2xl mb-8" style="color: var(--text-secondary);">
+          Explore the latest projects, tools, and innovations. From AI-powered applications to developer tools, discover what's being built.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a
+            href="#projects"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="background-color: var(--accent-emphasis); color: white;"
+            onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+            onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+          >
+            View Projects
+          </a>
+          <a
+            href="/posts"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="border: 1px solid var(--border-default); color: var(--text-primary);"
+          >
+            Read Blog
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      {projects.map((project, index) => (
+        <article class="mb-32 last:mb-0">
+          <div class={`grid md:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+            <!-- Content -->
+            <div class={index % 2 === 1 ? 'md:order-2' : ''}>
+              <div class="mb-4">
+                <span class="text-sm font-mono" style="color: var(--text-secondary);">
+                  {project.number}
+                </span>
+              </div>
+
+              <div class="mb-4">
+                <span
+                  class="inline-block px-3 py-1 rounded-full text-xs font-semibold"
+                  style={`background-color: var(--bg-overlay); color: var(--accent-primary);`}
+                >
+                  {project.badge}
+                </span>
+              </div>
+
+              <h2 class="text-4xl md:text-5xl font-bold mb-4" style="color: var(--text-primary);">
+                {project.title}
+              </h2>
+
+              <h3 class="text-2xl md:text-3xl font-semibold mb-6" style="color: var(--text-secondary);">
+                {project.subtitle}
+              </h3>
+
+              <p class="text-lg mb-8" style="color: var(--text-secondary); line-height: 1.6;">
+                {project.description}
+              </p>
+
+              <a
+                href={project.cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+                style="background-color: var(--accent-emphasis); color: white;"
+                onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+                onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+              >
+                {project.cta.text}
+                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Image -->
+            <div class={index % 2 === 1 ? 'md:order-1' : ''}>
+              <div class="relative rounded-lg overflow-hidden" style="border: 1px solid var(--border-default);">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="w-full h-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 md:py-32" style="background-color: var(--bg-secondary);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+        Ready to explore?
+      </h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
+        Check out the latest projects on GitHub, read detailed blog posts, or get started with the documentation.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a
+          href="https://github.com/ry-ops"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+          style="background-color: var(--accent-emphasis); color: white;"
+          onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+          onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+        >
+          View on GitHub
+        </a>
+        <a
+          href="/"
+          class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+          style="border: 1px solid var(--border-default); color: var(--text-primary);"
+        >
+          Back to Blog
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

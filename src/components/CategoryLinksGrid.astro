@@ -1,0 +1,157 @@
+---
+import { CATEGORIES_WITH_MEGA_MENU } from '../config/categories';
+
+// Use the categories from config
+const categories = CATEGORIES_WITH_MEGA_MENU;
+---
+
+<section class="category-links" aria-labelledby="categories-title">
+  <div class="category-links-header">
+    <h2 id="categories-title" class="category-links-title">Explore by Category</h2>
+    <p class="category-links-subtitle">
+      Browse articles by topic area
+    </p>
+  </div>
+
+  <div class="category-links-grid">
+    {categories.map((category) => (
+      <a href={category.href} class="category-link-card">
+        <h3 class="category-link-name">{category.name}</h3>
+        <p class="category-link-description">{category.description}</p>
+        <div class="category-link-arrow">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .category-links {
+    padding: 4rem 0;
+    background-color: var(--bg-secondary);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .category-links {
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .category-links {
+      margin: 0 -2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .category-links-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .category-links-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .category-links-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+  }
+
+  .category-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .category-link-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-default);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+
+  .category-link-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .category-link-card:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .category-link-name {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .category-link-card:hover .category-link-name {
+    color: var(--accent-primary);
+  }
+
+  .category-link-description {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    color: var(--text-secondary);
+    flex-grow: 1;
+    margin-bottom: 1rem;
+  }
+
+  .category-link-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: var(--text-muted);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .category-link-card:hover .category-link-arrow {
+    color: var(--accent-primary);
+    transform: translateX(4px);
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .category-links-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .category-links-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .category-links-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .category-link-card {
+      padding: 1.25rem;
+    }
+  }
+</style>

@@ -1,0 +1,407 @@
+---
+interface SpotlightPost {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  author?: {
+    name: string;
+    avatar?: string;
+  };
+  image?: string;
+  href: string;
+}
+
+interface Props {
+  categoryName: string;
+  categorySlug: string;
+  posts: SpotlightPost[];
+}
+
+const { categoryName, categorySlug, posts } = Astro.props;
+const [primary, ...secondary] = posts;
+const gridPosts = secondary.slice(0, 4);
+---
+
+<section class="category-spotlight" aria-labelledby="spotlight-title">
+  <div class="spotlight-header">
+    <div class="spotlight-header-text">
+      <span class="spotlight-label">Featured</span>
+      <h2 id="spotlight-title" class="spotlight-title">From {categoryName}</h2>
+    </div>
+    <a href={`/category/${categorySlug}`} class="spotlight-view-all">
+      View all
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="spotlight-layout">
+    <!-- Large featured post on left -->
+    {primary && (
+      <a href={primary.href} class="spotlight-primary">
+        <div class="spotlight-primary-image">
+          {primary.image && (
+            <img src={primary.image} alt="" loading="lazy" />
+          )}
+        </div>
+        <div class="spotlight-primary-content">
+          <span class="spotlight-category">{primary.category}</span>
+          <h3 class="spotlight-primary-title">{primary.title}</h3>
+          <p class="spotlight-primary-description">{primary.description}</p>
+          {primary.author && (
+            <div class="spotlight-meta">
+              {primary.author.avatar && (
+                <img src={primary.author.avatar} alt="" class="spotlight-avatar" />
+              )}
+              <span class="spotlight-author">{primary.author.name}</span>
+              <span class="spotlight-separator">·</span>
+              <time>{primary.date}</time>
+            </div>
+          )}
+        </div>
+      </a>
+    )}
+
+    <!-- 2x2 grid of smaller posts on right -->
+    <div class="spotlight-grid">
+      {gridPosts.map((post) => (
+        <a href={post.href} class="spotlight-card">
+          <div class="spotlight-card-image">
+            {post.image && (
+              <img src={post.image} alt="" loading="lazy" />
+            )}
+          </div>
+          <div class="spotlight-card-content">
+            <span class="spotlight-category">{post.category}</span>
+            <h3 class="spotlight-card-title">{post.title}</h3>
+            <time class="spotlight-card-date">{post.date}</time>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .category-spotlight {
+    padding: 4rem 0;
+    background-color: var(--bg-primary);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .category-spotlight {
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .category-spotlight {
+      margin: 0 -2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .spotlight-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  .spotlight-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .spotlight-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .spotlight-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .spotlight-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-link);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .spotlight-view-all:hover {
+    color: var(--text-link-hover);
+  }
+
+  .spotlight-view-all svg {
+    transition: transform 0.2s ease;
+  }
+
+  .spotlight-view-all:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Main layout: large left + 2x2 grid right */
+  .spotlight-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  /* Primary (large) card */
+  .spotlight-primary {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .spotlight-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-primary);
+  }
+
+  .spotlight-primary-image {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+  }
+
+  .spotlight-primary-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .spotlight-primary:hover .spotlight-primary-image img {
+    transform: scale(1.03);
+  }
+
+  .spotlight-primary-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .spotlight-primary-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin: 0 0 0.75rem 0;
+    transition: color 0.2s ease;
+  }
+
+  .spotlight-primary:hover .spotlight-primary-title {
+    color: var(--accent-primary);
+  }
+
+  .spotlight-primary-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--text-secondary);
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 2x2 grid */
+  .spotlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .spotlight-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .spotlight-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-primary);
+  }
+
+  .spotlight-card-image {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+  }
+
+  .spotlight-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .spotlight-card:hover .spotlight-card-image img {
+    transform: scale(1.05);
+  }
+
+  .spotlight-card-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .spotlight-card-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .spotlight-card:hover .spotlight-card-title {
+    color: var(--accent-primary);
+  }
+
+  .spotlight-card-date {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: auto;
+  }
+
+  /* Shared styles */
+  .spotlight-category {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .spotlight-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: auto;
+  }
+
+  .spotlight-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: var(--bg-overlay);
+    padding: 0.2rem;
+  }
+
+  .spotlight-author {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .spotlight-separator {
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 1023px) {
+    .spotlight-layout {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .spotlight-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .spotlight-card-content {
+      padding: 0.75rem;
+    }
+
+    .spotlight-card-title {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .spotlight-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .spotlight-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .spotlight-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .spotlight-primary-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .spotlight-primary-content {
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .spotlight-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

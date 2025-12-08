@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const updates = [
+  {
+    version: '1.3.0',
+    date: '2025-11-26',
+    title: 'Security & Content Expansion',
+    changes: [
+      'Created new "Meet Cortex" page - comprehensive overview of Cortex capabilities and architecture',
+      'Updated navigation: replaced Showcase with Meet Cortex',
+      'Added "Prompt Library" page with 15+ professional AI prompts',
+      'Published "Mastering AI: Advanced Prompting Techniques" guide',
+      'Added cross-links from all 11 Cortex blog posts to Meet Cortex page',
+      'Created Cortex documentation on prompting techniques and system thinking',
+      'Published featured article on Cortex prompt injection security',
+      'Implemented 5-layer security defense in Cortex (input validation, access control, audit logging, anomaly detection, human review)',
+      'Added security post to showcase page as featured project #001',
+      'Created prompt injection detector module with 13 dangerous pattern detections',
+      'Implemented access control system with file/network/git/command restrictions',
+      'Added comprehensive security documentation and integration examples',
+      'Updated showcase page project numbering (001-009)',
+      'Added photographer attribution to Unsplash images',
+    ],
+  },
+  {
+    version: '1.2.0',
+    date: '2025-11-26',
+    title: 'AMP & SEO Optimizations',
+    changes: [
+      'Implemented AMP (Accelerated Mobile Pages) for all blog posts',
+      'Added comprehensive SEO meta tags with Open Graph and Twitter Cards',
+      'Created XML sitemap with image sitemaps',
+      'Added JSON-LD structured data for rich snippets',
+      'Added robots.txt and RSS feed',
+    ],
+  },
+  {
+    version: '1.1.0',
+    date: '2025-11-26',
+    title: 'Footer Redesign & Legal Pages',
+    changes: [
+      'Redesigned footer to match GitHub blog styling',
+      'Added Terms of Service page',
+      'Added Privacy Policy page',
+      'Added Cookie Management page with preferences',
+      'Added Do Not Share My Personal Information page',
+      'Created dynamic category pages for all 7 categories',
+    ],
+  },
+  {
+    version: '1.0.0',
+    date: '2025-11-25',
+    title: 'Initial Launch',
+    changes: [
+      'Generated 32 blog posts and documentation articles',
+      'Created showcase page with 8 featured projects',
+      'Implemented GitHub blog-inspired dark theme',
+      'Added unique Unsplash images for each post',
+      'Set up content collections with Zod schema',
+      'Implemented comprehensive blog post layout with sidebar',
+    ],
+  },
+];
+---
+
+<Layout title="Changelog - ry-ops" description="Track updates, new features, and improvements to the ry-ops blog">
+  <Header />
+
+  <article class="py-16">
+    <!-- Breadcrumb -->
+    <div class="content-constrained px-4 sm:px-6 lg:px-8 mb-6">
+      <nav class="flex items-center gap-2 text-sm" style="color: var(--text-secondary);">
+        <a href="/" class="hover:underline">Home</a>
+        <span>→</span>
+        <span style="color: var(--text-primary);">Changelog</span>
+      </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-12 md:py-20" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <div class="mb-6">
+            <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+              Latest Updates
+            </span>
+          </div>
+          <h1 class="text-5xl md:text-6xl font-bold mb-6" style="color: var(--text-primary);">
+            Changelog
+          </h1>
+          <p class="text-xl md:text-2xl" style="color: var(--text-secondary);">
+            Track all updates, new features, and improvements to the blog
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Changelog Entries -->
+    <section class="py-16">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+          {updates.map((update, index) => (
+            <article class="mb-12 pb-12" style={index < updates.length - 1 ? 'border-bottom: 1px solid var(--border-default);' : ''}>
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-sm font-mono px-3 py-1 rounded-full" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+                  v{update.version}
+                </span>
+                <time class="text-sm" style="color: var(--text-secondary);">
+                  {new Date(update.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time>
+              </div>
+
+              <h2 class="text-3xl font-bold mb-4" style="color: var(--text-primary);">
+                {update.title}
+              </h2>
+
+              <ul class="space-y-3">
+                {update.changes.map((change) => (
+                  <li class="flex items-start gap-3">
+                    <svg class="w-5 h-5 mt-0.5 flex-shrink-0" style="color: var(--accent-primary);" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span style="color: var(--text-secondary); line-height: 1.6;">
+                      {change}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16" style="background-color: var(--bg-secondary);">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-primary);">
+          Stay Updated
+        </h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
+          Subscribe to our RSS feed to get notified of new posts and updates.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a
+            href="/rss.xml"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="background-color: var(--accent-emphasis); color: white;"
+            onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+            onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+          >
+            Subscribe to RSS
+          </a>
+          <a
+            href="/"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="border: 1px solid var(--border-default); color: var(--text-primary);"
+          >
+            Back to Blog
+          </a>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <Footer />
+</Layout>

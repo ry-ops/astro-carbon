@@ -1,0 +1,322 @@
+---
+import { getAllCategoryLinks, CATEGORIES_WITH_MEGA_MENU } from '../config/categories';
+import MegaMenu from './MegaMenu.astro';
+
+const navItems = [
+  { name: 'Changelog', href: '/changelog' },
+  { name: 'Docs', href: '/docs' },
+  { name: 'Prompt Library', href: '/prompt-library' },
+  { name: 'Meet Cortex', href: '/meet-cortex' },
+];
+
+// Get all category links from config (for mobile menu)
+const categories = getAllCategoryLinks();
+---
+
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+<header class="header-wrapper" role="banner">
+  <!-- Top Navigation Bar (hides on scroll) -->
+  <div class="top-nav" id="top-nav">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex h-12 items-center justify-between gap-8">
+      <!-- Left: Brand + Primary Nav -->
+      <div class="flex items-center gap-1">
+        <!-- Brand with Logo -->
+        <a href="/" class="flex items-center gap-2 font-semibold transition-colors group header-brand-link" style="font-size: var(--font-size-md); color: var(--text-primary);" aria-label="ry-ops Blog Home">
+          <!-- Logo SVG - 32px to match GitHub -->
+          <svg
+            class="transition-opacity group-hover:opacity-80"
+            width="32"
+            height="32"
+            viewBox="0 0 857 685"
+            fill="currentColor"
+            role="img"
+            aria-labelledby="logo-title"
+          >
+            <title id="logo-title">ry-ops Logo</title>
+            <path d="M582.496338,287.795502 C582.148071,283.143005 582.001038,278.465240 581.421326,273.841766 C572.428711,202.112244 515.008850,150.852936 442.701782,150.388596 C395.539154,150.085724 348.372864,150.376587 301.208710,150.235962 C297.602600,150.225220 296.394135,151.521729 295.491882,154.742264 C282.325653,201.737961 269.033051,248.698273 255.791641,295.672974 C255.416489,297.003876 255.273621,298.400208 254.892609,300.471985 C270.918671,300.471985 286.298462,300.471985 301.997223,300.471985 C296.979767,378.590973 292.003357,456.070557 287.026978,533.550110 C287.394043,533.629028 287.761108,533.707886 288.128174,533.786743 C327.845001,453.692749 367.561859,373.598724 407.606232,292.844177 C392.407135,292.844177 378.267548,292.844177 364.001831,292.844177 C364.001831,291.894714 363.855133,291.206177 364.022980,290.605530 C370.915436,265.938568 377.788605,241.265808 384.898193,216.661377 C385.242828,215.468628 387.689575,214.144470 389.169006,214.130783 C407.333221,213.962708 425.499817,213.977188 443.665344,214.050293 C456.400879,214.101547 468.506470,217.104675 479.623993,223.233841 C509.218323,239.549423 524.528015,273.797852 516.937500,306.042084 C509.073059,339.449799 480.833374,363.091553 446.423553,364.305634 C428.279663,364.945831 410.096954,364.598480 391.933411,364.470093 C388.481476,364.445709 386.639893,365.348999 385.229248,368.665192 C377.414368,387.036530 369.338287,405.296722 361.375366,423.605286 C360.809662,424.905975 360.434052,426.289368 359.783630,428.174591 C362.233368,428.174591 364.047455,428.174561 365.861542,428.174591 C381.694183,428.174591 397.527649,428.260620 413.358734,428.104645 C416.658630,428.072144 418.827240,429.064697 420.986755,431.610596 C449.661255,465.415710 478.481842,499.096954 507.162628,532.896790 C509.413574,535.549500 511.677032,536.678833 515.200439,536.660706 C542.865112,536.518250 570.530884,536.581604 598.196289,536.581482 C599.795654,536.581482 601.394958,536.581482 604.455261,536.581482 C569.638855,495.679810 535.714050,455.825684 501.742035,415.915985 C553.049561,388.539703 581.039673,347.010712 582.496338,287.795502z"/>
+          </svg>
+          <span style="color: var(--text-secondary);" aria-hidden="true">/</span>
+          <span>Blog</span>
+        </a>
+
+        <!-- Primary Navigation - Large screens -->
+        <nav class="hidden lg:flex items-center ml-6 gap-6" role="navigation" aria-label="Primary navigation">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class="header-nav-link font-medium transition-colors whitespace-nowrap"
+              style="font-size: 16px; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;"
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <!-- Right: CTAs -->
+      <div class="flex items-center gap-3">
+        <!-- Search Button -->
+        <button
+          type="button"
+          class="search-trigger hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors"
+          style="background-color: var(--bg-tertiary); border: 1px solid var(--border-default); color: var(--text-secondary);"
+          onclick="window.openSearch && window.openSearch()"
+          aria-label="Search posts"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <span class="hidden lg:inline" style="font-size: var(--font-size-sm);">Search</span>
+          <kbd class="hidden lg:inline px-1.5 py-0.5 text-xs rounded" style="background-color: var(--bg-overlay); font-family: monospace;">⌘K</kbd>
+        </button>
+
+        <a
+          href="https://github.com/ry-ops/DriveIQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden lg:inline-flex rounded-md px-4 py-2 font-semibold transition-colors whitespace-nowrap header-cta-primary"
+          style="font-size: var(--font-size-base); background-color: var(--accent-emphasis); color: white;"
+        >
+          Try DriveIQ
+        </a>
+        <a
+          href="/whats-new"
+          class="hidden md:inline-flex font-semibold transition-colors whitespace-nowrap header-cta-secondary"
+          style="font-size: var(--font-size-base); color: var(--text-link);"
+        >
+          See what's new
+        </a>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-button"
+          class="lg:hidden p-2 transition-colors"
+          style="color: var(--text-secondary);"
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden">
+      <nav class="py-4 space-y-1" role="navigation" aria-label="Mobile navigation">
+        {navItems.map((item) => (
+          <a
+            href={item.href}
+            class="block px-4 py-2 font-normal transition-colors mobile-nav-link"
+            style="font-size: var(--font-size-base); color: var(--text-secondary);"
+          >
+            {item.name}
+          </a>
+        ))}
+
+        <!-- Categories in Mobile Menu -->
+        <div class="pt-2 pb-2" style="margin-top: 0.5rem;">
+          <div class="px-4 py-2 font-semibold" style="font-size: var(--font-size-xs); color: var(--text-primary);" role="heading" aria-level="2">
+            Categories
+          </div>
+          {categories.map((category) => (
+            <a
+              href={category.href}
+              class="block px-4 py-2 font-normal transition-colors mobile-category-link"
+              style="font-size: var(--font-size-base); color: var(--text-secondary);"
+            >
+              {category.name}
+            </a>
+          ))}
+        </div>
+
+        <!-- CTAs in Mobile Menu -->
+        <div class="pt-2 space-y-2" style="margin-top: 0.5rem; padding-bottom: 1rem;">
+          <a
+            href="https://github.com/ry-ops/DriveIQ"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block mx-4 rounded-md px-4 py-2 font-semibold text-center transition-colors mobile-cta-primary"
+            style="font-size: var(--font-size-base); background-color: var(--accent-emphasis); color: white;"
+          >
+            Try DriveIQ
+          </a>
+          <a
+            href="/whats-new"
+            class="block mx-4 px-4 py-2 font-semibold text-center transition-colors mobile-cta-secondary"
+            style="font-size: var(--font-size-base); color: var(--text-link);"
+          >
+            See what's new
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+</header>
+
+<!-- Category Navigation - Outside header for proper sticky behavior -->
+<div class="category-nav-spacer" id="category-nav-spacer"></div>
+<div class="category-mega-container">
+  <div class="category-nav-wrapper" id="category-nav">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="hidden lg:flex items-center gap-8 py-2">
+        {CATEGORIES_WITH_MEGA_MENU.map((category) => (
+          <div class="category-nav-item" data-category={category.slug}>
+            <button
+              class="category-trigger font-medium transition-colors whitespace-nowrap"
+              style="font-size: 16px; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif; background: none; border: none; cursor: pointer; padding: 0;"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              {category.name}
+            </button>
+          </div>
+        ))}
+      </nav>
+    </div>
+  </div>
+
+  <!-- Mega Menu Dropdowns - Inside container but outside category-nav-wrapper for proper z-index -->
+  <div class="mega-menu-wrapper">
+    {CATEGORIES_WITH_MEGA_MENU.map((category) => (
+      <MegaMenu category={category} />
+    ))}
+  </div>
+</div>
+
+<style>
+  /* Header wrapper */
+  .header-wrapper {
+    position: relative;
+    z-index: 50;
+  }
+
+  /* Top navigation bar */
+  .top-nav {
+    background-color: var(--bg-primary);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .top-nav.hidden-nav {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+  }
+
+  /* Category navigation wrapper */
+  .category-nav-wrapper {
+    background-color: var(--bg-primary);
+    z-index: 50;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .category-nav-wrapper.is-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Spacer to prevent content jump when category nav becomes fixed */
+  .category-nav-spacer {
+    display: none;
+    height: 41px; /* Height of category nav (py-2 = 8px + 8px + ~25px text) */
+  }
+
+  .category-nav-spacer.active {
+    display: block;
+  }
+
+  .category-nav-item {
+    position: relative;
+  }
+
+  .category-trigger:hover {
+    opacity: 0.7;
+  }
+
+  .category-mega-container {
+    position: relative;
+    z-index: 60;
+  }
+
+  .mega-menu-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 60;
+  }
+
+  /* Header navigation link hover states */
+  .header-nav-link:hover,
+  .header-nav-link:focus {
+    opacity: 0.7;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:focus,
+  .mobile-category-link:hover,
+  .mobile-category-link:focus {
+    color: var(--text-primary) !important;
+  }
+
+  /* CTA button hover states */
+  .header-cta-primary:hover,
+  .header-cta-primary:focus,
+  .mobile-cta-primary:hover,
+  .mobile-cta-primary:focus {
+    background-color: var(--accent-primary) !important;
+  }
+
+  .header-cta-secondary:hover,
+  .header-cta-secondary:focus,
+  .mobile-cta-secondary:hover,
+  .mobile-cta-secondary:focus {
+    color: var(--text-link-hover) !important;
+  }
+
+  /* Brand link hover state */
+  .header-brand-link:hover,
+  .header-brand-link:focus {
+    opacity: 0.8;
+  }
+
+  /* Search trigger hover state */
+  .search-trigger:hover {
+    background-color: var(--bg-overlay) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Mobile: keep both visible */
+  @media (max-width: 1023px) {
+    .header-wrapper {
+      position: sticky;
+      top: 0;
+    }
+
+    .top-nav.hidden-nav {
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .category-nav-wrapper {
+      display: none;
+    }
+  }
+</style>
+

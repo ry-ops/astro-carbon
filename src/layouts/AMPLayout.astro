@@ -1,0 +1,352 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  author?: string;
+  publishedTime?: string;
+  tags?: string[];
+  canonicalURL: string;
+}
+
+const {
+  title,
+  description = 'Explore AI & ML, open source projects, developer tools, and engineering insights. Featuring MCP servers, automation tools, and comprehensive tutorials.',
+  image = '/og-image.jpg',
+  author = 'Ryan Dahlberg',
+  publishedTime,
+  tags = [],
+  canonicalURL,
+} = Astro.props;
+
+const siteUrl = Astro.site || 'https://blog.ry-ops.com';
+const imageUrl = image.startsWith('http') ? image : new URL(image, siteUrl).toString();
+
+// Structured data for SEO
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: description,
+  image: imageUrl,
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: `${siteUrl}/about`,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'ry-ops',
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteUrl}/logo.svg`,
+    },
+  },
+  datePublished: publishedTime,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalURL,
+  },
+  keywords: tags.join(', '),
+};
+---
+
+<!doctype html>
+<html ⚡ lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+
+    <!-- AMP Scripts -->
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={Astro.url.toString()} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- AMP Boilerplate -->
+    <style amp-boilerplate>
+      body {
+        -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+        animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      }
+      @-webkit-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-moz-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-ms-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @-o-keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+      @keyframes -amp-start {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
+      }
+    </style>
+    <noscript>
+      <style amp-boilerplate>
+        body {
+          -webkit-animation: none;
+          -moz-animation: none;
+          -ms-animation: none;
+          animation: none;
+        }
+      </style>
+    </noscript>
+
+    <!-- Custom Styles -->
+    <style amp-custom>
+      :root {
+        --bg-primary: #0d1117;
+        --bg-secondary: #161b22;
+        --bg-overlay: #1c2128;
+        --text-primary: #e6edf3;
+        --text-secondary: #8b949e;
+        --text-link: #0693e3;
+        --border-default: #30363d;
+        --accent-primary: #0693e3;
+        --accent-emphasis: #0582ca;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+        background-color: var(--bg-primary);
+        color: var(--text-secondary);
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 1rem;
+      }
+
+      header {
+        border-bottom: 1px solid var(--border-default);
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--text-primary);
+        text-decoration: none;
+      }
+
+      h1 {
+        color: var(--text-primary);
+        font-size: 2rem;
+        line-height: 1.25;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border-default);
+        padding-bottom: 0.5rem;
+      }
+
+      h3 {
+        color: var(--text-primary);
+        font-size: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      p {
+        margin: 1.25rem 0;
+        line-height: 1.75;
+      }
+
+      a {
+        color: var(--text-link);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .meta {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-default);
+      }
+
+      .featured-image {
+        margin: 2rem 0;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      .content {
+        margin-top: 2rem;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background-color: var(--bg-overlay);
+        color: var(--text-secondary);
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tags {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-default);
+      }
+
+      footer {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-default);
+        text-align: center;
+        font-size: 0.875rem;
+      }
+
+      code {
+        background-color: var(--bg-overlay);
+        color: var(--accent-primary);
+        padding: 0.2em 0.4em;
+        border-radius: 0.25rem;
+        font-size: 0.875em;
+      }
+
+      pre {
+        background-color: var(--bg-secondary);
+        border: 1px solid var(--border-default);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        overflow-x: auto;
+      }
+
+      pre code {
+        background-color: transparent;
+        padding: 0;
+      }
+
+      ul, ol {
+        margin: 1.5rem 0;
+        padding-left: 1.5rem;
+      }
+
+      li {
+        margin: 0.5rem 0;
+      }
+
+      blockquote {
+        border-left: 4px solid var(--accent-primary);
+        padding-left: 1.5rem;
+        margin: 2rem 0;
+        font-style: italic;
+      }
+
+      strong {
+        color: var(--text-primary);
+        font-weight: 600;
+      }
+    </style>
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+            data-ad-client="ca-pub-1981370041093621"></script>
+  </head>
+  <body>
+    <!-- Google Analytics -->
+    <amp-analytics type="gtag" data-credentials="include">
+      <script type="application/json">
+        {
+          "vars": {
+            "gtag_id": "G-Q0J13ZX8M2",
+            "config": {
+              "G-Q0J13ZX8M2": {
+                "groups": "default"
+              }
+            }
+          }
+        }
+      </script>
+    </amp-analytics>
+
+    <div class="container">
+      <header>
+        <a href="/" class="logo">ry-ops</a>
+      </header>
+
+      <slot />
+
+      <footer>
+        <p>&copy; 2025 ry-ops. All rights reserved.</p>
+        <p>
+          <a href="/terms">Terms</a> •
+          <a href="/privacy">Privacy</a> •
+          <a href={canonicalURL}>View Full Version</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

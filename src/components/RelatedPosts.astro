@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug: string;
+  currentCategory: string;
+  currentTags?: string[];
+  limit?: number;
+}
+
+const { currentSlug, currentCategory, currentTags = [], limit = 3 } = Astro.props;
+
+// Get all posts except current and docs, excluding future posts
+const now = new Date();
+const allPosts = await getCollection('posts', ({ data, slug }) => {
+  return slug !== currentSlug && data.category !== 'Docs' && data.date <= now;
+});
+
+// Score posts by relevance
+const scoredPosts = allPosts.map(post => {
+  let score = 0;
+
+  // Same category gets high score
+  if (post.data.category === currentCategory) score += 10;
+
+  // Shared tags get medium score
+  const sharedTags = post.data.tags?.filter(tag => currentTags.includes(tag)) || [];
+  score += sharedTags.length * 3;
+
+  // Featured posts get slight boost
+  if (post.data.featured) score += 2;
+
+  return { post, score };
+});
+
+// Sort by score and take top N
+const relatedPosts = scoredPosts
+  .sort((a, b) => b.score - a.score)
+  .slice(0, limit)
+  .map(item => item.post);
+---
+
+{relatedPosts.length > 0 && (
+  <div class="rounded-lg p-6" style="background-color: var(--bg-secondary); border: 1px solid var(--border-default);">
+    <h3 class="text-lg font-bold mb-6" style="color: var(--text-primary);">
+      Related Posts
+    </h3>
+    <div class="space-y-4">
+      {relatedPosts.map((post) => (
+        <a
+          href={`/posts/${post.slug}`}
+          class="block group"
+        >
+          <div class="flex gap-3">
+            <div class="flex-shrink-0">
+              <img
+                src={post.data.hero?.image || post.data.image}
+                alt={post.data.title}
+                class="w-20 h-20 rounded object-cover"
+                style="border: 1px solid var(--border-default);"
+              />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="mb-1">
+                <span class="text-xs font-semibold px-2 py-1 rounded" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+                  {post.data.category}
+                </span>
+              </div>
+              <h4 class="text-sm font-semibold line-clamp-2 mb-1 group-hover:underline" style="color: var(--text-primary);">
+                {post.data.title}
+              </h4>
+              <p class="text-xs line-clamp-2" style="color: var(--text-secondary);">
+                {post.data.description}
+              </p>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+)}

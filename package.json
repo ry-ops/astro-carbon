@@ -1,0 +1,33 @@
+{
+  "name": "astro-carbon",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A GitHub Blog-inspired dark theme for Astro. Features mega menu navigation, hero sections, and a clean developer-focused design.",
+  "author": "Ryan Dahlberg",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ry-ops/astro-carbon.git"
+  },
+  "keywords": [
+    "astro",
+    "astro-theme",
+    "blog",
+    "dark-theme",
+    "developer-blog",
+    "github-blog"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.14",
+    "astro": "^5.16.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}

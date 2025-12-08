@@ -1,0 +1,194 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Do Not Share My Personal Information - ry-ops" description="Manage your personal information sharing preferences">
+  <Header />
+
+  <article class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--text-secondary);">
+          <a href="/" class="hover:underline">Home</a>
+          <span>→</span>
+          <span style="color: var(--text-primary);">Do Not Share My Personal Information</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-12">
+          <h1 class="text-5xl font-bold mb-4" style="color: var(--text-primary);">
+            Do Not Share My Personal Information
+          </h1>
+          <p class="text-lg" style="color: var(--text-secondary);">
+            Your rights under privacy laws
+          </p>
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-invert prose-lg max-w-none" style="color: var(--text-secondary);">
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Your Privacy Rights
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            Under various privacy laws, including the California Consumer Privacy Act (CCPA) and similar regulations, you have the right to opt out of the sale or sharing of your personal information. At ry-ops, we respect your privacy rights and are committed to transparency about how we use your information.
+          </p>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Our Commitment
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            <strong style="color: var(--text-primary); font-weight: 600;">We do not sell your personal information.</strong> We do not and will not sell your personal information to third parties. We may share certain information with service providers who help us operate our website, but these providers are bound by contractual obligations to keep your information confidential and secure.
+          </p>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            What Information We Collect
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            We may collect the following types of information:
+          </p>
+          <ul style="margin: 1.5em 0; padding-left: 1.5em;">
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Identifiers:</strong> Such as name, email address, or IP address</li>
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Internet Activity:</strong> Browsing history, search history, and information regarding your interaction with our website</li>
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Geolocation Data:</strong> Approximate location based on IP address</li>
+          </ul>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Your Rights
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            You have the following rights regarding your personal information:
+          </p>
+          <ul style="margin: 1.5em 0; padding-left: 1.5em;">
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Right to Know:</strong> You can request information about the personal data we have collected about you</li>
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Right to Delete:</strong> You can request that we delete your personal information</li>
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Right to Opt-Out:</strong> You can opt out of the sale or sharing of your personal information (though we don't sell it)</li>
+            <li style="margin: 0.5em 0;"><strong style="color: var(--text-primary); font-weight: 600;">Right to Non-Discrimination:</strong> We will not discriminate against you for exercising your privacy rights</li>
+          </ul>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Opt-Out Request Form
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            To exercise your rights or submit an opt-out request, please use the form below or contact us through our GitHub profile.
+          </p>
+
+          <!-- Opt-Out Form -->
+          <div class="my-8 p-6 rounded-lg" style="background-color: var(--bg-secondary); border: 1px solid var(--border-default);">
+            <form id="opt-out-form" class="space-y-6">
+              <div>
+                <label for="email" class="block text-sm font-semibold mb-2" style="color: var(--text-primary);">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  class="w-full px-4 py-3 rounded-md"
+                  style="background-color: var(--bg-primary); border: 1px solid var(--border-default); color: var(--text-primary);"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <div>
+                <label for="request-type" class="block text-sm font-semibold mb-2" style="color: var(--text-primary);">
+                  Type of Request *
+                </label>
+                <select
+                  id="request-type"
+                  required
+                  class="w-full px-4 py-3 rounded-md"
+                  style="background-color: var(--bg-primary); border: 1px solid var(--border-default); color: var(--text-primary);"
+                >
+                  <option value="">Select a request type</option>
+                  <option value="opt-out">Opt out of information sharing</option>
+                  <option value="access">Request access to my data</option>
+                  <option value="delete">Request deletion of my data</option>
+                  <option value="correction">Request correction of my data</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="additional-info" class="block text-sm font-semibold mb-2" style="color: var(--text-primary);">
+                  Additional Information (Optional)
+                </label>
+                <textarea
+                  id="additional-info"
+                  rows="4"
+                  class="w-full px-4 py-3 rounded-md"
+                  style="background-color: var(--bg-primary); border: 1px solid var(--border-default); color: var(--text-primary);"
+                  placeholder="Please provide any additional details about your request..."
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="px-6 py-3 rounded-md font-semibold transition-colors"
+                style="background-color: var(--accent-emphasis); color: white;"
+                onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+                onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+              >
+                Submit Request
+              </button>
+            </form>
+
+            <div id="form-message" class="mt-4 p-4 rounded-md hidden" style="background-color: var(--bg-overlay);">
+              <p style="color: var(--text-primary);"></p>
+            </div>
+          </div>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Processing Your Request
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            Once we receive your request, we will:
+          </p>
+          <ol style="margin: 1.5em 0; padding-left: 1.5em;">
+            <li style="margin: 0.5em 0;">Verify your identity to protect your information</li>
+            <li style="margin: 0.5em 0;">Process your request within 45 days (or notify you if we need additional time)</li>
+            <li style="margin: 0.5em 0;">Provide confirmation once your request has been completed</li>
+          </ol>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Contact Us
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            If you have questions about this process or need assistance, please contact us through <a href="https://github.com/ry-ops" target="_blank" rel="noopener noreferrer" style="color: var(--text-link); text-decoration: none;">GitHub</a>.
+          </p>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            For more information about how we handle your data, please review our <a href="/privacy" style="color: var(--text-link); text-decoration: none;">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('opt-out-form') as HTMLFormElement;
+    const messageDiv = document.getElementById('form-message');
+    const messageParagraph = messageDiv?.querySelector('p');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // In a real implementation, this would send the data to a server
+      // For now, we'll just show a success message
+      if (messageDiv && messageParagraph) {
+        messageDiv.classList.remove('hidden');
+        messageParagraph.textContent = 'Thank you for your request. We will process it within 45 days and contact you at the email address provided.';
+        form.reset();
+
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          messageDiv.classList.add('hidden');
+        }, 5000);
+      }
+    });
+  });
+</script>

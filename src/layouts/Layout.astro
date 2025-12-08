@@ -1,0 +1,224 @@
+---
+import '../styles/critical.css';
+import '../styles/global.css';
+import SearchModal from '../components/Search/SearchModal.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  author?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+  canonicalURL?: string;
+  ampURL?: string;
+}
+
+const {
+  title,
+  description = 'Explore AI & ML, open source projects, developer tools, and engineering insights. Featuring MCP servers, automation tools, and comprehensive tutorials.',
+  image = '/og-image.jpg',
+  article = false,
+  author = 'Ryan Dahlberg',
+  publishedTime,
+  modifiedTime,
+  tags = [],
+  canonicalURL,
+  ampURL,
+} = Astro.props;
+
+// Format title with site name
+const formattedTitle = title.startsWith('ry-ops') ? title : `ry-ops | ${title}`;
+
+const siteUrl = Astro.site?.toString() || 'https://ry-ops.dev';
+const currentUrl = canonicalURL || new URL(Astro.url.pathname, siteUrl).toString();
+
+// Ensure image URL is always absolute for OG tags
+let imageUrl: string;
+if (image.startsWith('http://') || image.startsWith('https://')) {
+  imageUrl = image;
+} else if (image.startsWith('/')) {
+  imageUrl = new URL(image, siteUrl).toString();
+} else {
+  imageUrl = new URL('/' + image, siteUrl).toString();
+}
+
+// Structured data for SEO
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': article ? 'BlogPosting' : 'WebSite',
+  ...(article ? {
+    headline: title,
+    description: description,
+    image: imageUrl,
+    author: {
+      '@type': 'Person',
+      name: author,
+      url: `${siteUrl}/about`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'ry-ops',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/logo.svg`,
+      },
+    },
+    datePublished: publishedTime,
+    dateModified: modifiedTime || publishedTime,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': currentUrl,
+    },
+    keywords: tags.join(', '),
+  } : {
+    name: 'ry-ops Blog',
+    url: siteUrl,
+    description: description,
+    publisher: {
+      '@type': 'Organization',
+      name: 'ry-ops',
+    },
+  }),
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/logo.ico" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{formattedTitle}</title>
+    <meta name="title" content={formattedTitle} />
+    <meta name="description" content={description} />
+    <meta name="author" content={author} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={currentUrl} />
+    {ampURL && <link rel="amphtml" href={ampURL} />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:site_name" content="ry-ops Blog" />
+    <meta property="og:locale" content="en_US" />
+    {article && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {article && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {article && author && <meta property="article:author" content={author} />}
+    {article && tags.map((tag) => <meta property="article:tag" content={tag} />)}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={currentUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:creator" content="@ryops" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#0d1117" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="alternate" type="application/rss+xml" title="ry-ops Blog RSS Feed" href="/rss.xml" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- DNS Prefetch and Preconnect for third-party domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://www.google-analytics.com" />
+
+    <!-- Google Analytics (async - non-blocking) -->
+    <!-- Initialize gtag before script loads to prevent race conditions -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Q0J13ZX8M2', { 'anonymize_ip': true });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0J13ZX8M2"></script>
+  </head>
+  <body class="min-h-screen">
+    <slot />
+    <SearchModal />
+
+    <!-- Header Navigation Script -->
+    <script src="/js/header.js" defer></script>
+
+    <!-- SVG Animation Fix: Restart animations when SVGs enter viewport -->
+    <script is:inline>
+      (function() {
+        // Restart SVG animations by reloading the src
+        function restartSvgAnimation(img) {
+          const src = img.src;
+          if (src && src.endsWith('.svg')) {
+            // Force reload by appending timestamp
+            const separator = src.includes('?') ? '&' : '?';
+            img.src = src.split('?')[0] + separator + '_t=' + Date.now();
+          }
+        }
+
+        // Use IntersectionObserver to detect when SVGs become visible
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              if (img.src && img.src.includes('.svg')) {
+                restartSvgAnimation(img);
+                observer.unobserve(img); // Only restart once
+              }
+            }
+          });
+        }, { threshold: 0.1 });
+
+        // Observe all images on page load
+        function observeSvgImages() {
+          document.querySelectorAll('img[src*=".svg"]').forEach(img => {
+            observer.observe(img);
+          });
+        }
+
+        // Run on DOM ready and after any dynamic content loads
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', observeSvgImages);
+        } else {
+          observeSvgImages();
+        }
+
+        // Also observe new images added dynamically
+        const mutationObserver = new MutationObserver((mutations) => {
+          mutations.forEach(mutation => {
+            mutation.addedNodes.forEach(node => {
+              if (node.nodeType === 1) {
+                if (node.tagName === 'IMG' && node.src && node.src.includes('.svg')) {
+                  observer.observe(node);
+                }
+                node.querySelectorAll?.('img[src*=".svg"]').forEach(img => {
+                  observer.observe(img);
+                });
+              }
+            });
+          });
+        });
+        mutationObserver.observe(document.body, { childList: true, subtree: true });
+      })();
+    </script>
+  </body>
+</html>

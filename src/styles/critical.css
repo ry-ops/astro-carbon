@@ -1,0 +1,151 @@
+/* Critical CSS - Above-the-fold styles for faster initial render */
+/* These styles ensure above-the-fold content is styled immediately */
+
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --text-primary: #e6edf3;
+  --text-secondary: #8d96a0;
+  --text-link: #0693e3;
+  --border-default: #30363d;
+  --accent-primary: #0693e3;
+
+  /* Typography Scale - Matching GitHub Blog */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 36px;
+
+  /* Line Heights - Matching GitHub Blog */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+/* Base styles for immediate rendering */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Typography - GitHub Blog Style */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+  margin-top: 40px;
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Content layout */
+.content-constrained {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Article cards */
+.article-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Category badge */
+.category-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--bg-secondary);
+  color: var(--accent-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+}
+
+/* Header styling */
+header {
+  border-bottom: 1px solid var(--border-default);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+}
+
+header a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+/* Image optimization */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Prevent layout shift */
+.min-h-screen {
+  min-height: 100vh;
+}

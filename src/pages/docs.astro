@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const now = new Date();
+const posts = await getCollection('posts', ({ data }) => data.date <= now);
+const docPosts = posts
+  .filter((post) => post.data.category === 'Docs')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Helper function to format date
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
+// Group docs by project (remove -setup-guide suffix)
+const groupedDocs = docPosts.reduce((acc, post) => {
+  const projectName = post.slug.replace(/-setup-guide$/, '');
+  const mainPost = posts.find(p => p.slug === projectName);
+
+  if (mainPost) {
+    if (!acc[projectName]) {
+      acc[projectName] = {
+        title: mainPost.data.title,
+        description: mainPost.data.description,
+        image: mainPost.data.image,
+        repo: mainPost.data.repo,
+        doc: post,
+      };
+    }
+  }
+
+  return acc;
+}, {} as Record<string, any>);
+
+const projects = Object.values(groupedDocs);
+---
+
+<Layout title="Documentation - ry-ops" description="Setup guides, tutorials, and documentation for all projects">
+  <Header />
+
+  <article class="py-16">
+    <!-- Breadcrumb -->
+    <div class="content-constrained px-4 sm:px-6 lg:px-8 mb-6">
+      <nav class="flex items-center gap-2 text-sm" style="color: var(--text-secondary);">
+        <a href="/" class="hover:underline">Home</a>
+        <span>→</span>
+        <span style="color: var(--text-primary);">Documentation</span>
+      </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-12 md:py-20" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl">
+          <div class="mb-6">
+            <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+              Documentation
+            </span>
+          </div>
+          <h1 class="text-5xl md:text-6xl font-bold mb-6" style="color: var(--text-primary);">
+            Documentation
+          </h1>
+          <p class="text-xl md:text-2xl" style="color: var(--text-secondary);">
+            Setup guides, installation instructions, and tutorials for all projects
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation Grid -->
+    <section class="py-16">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project) => (
+            <article class="rounded-lg overflow-hidden transition-transform hover:scale-105" style="border: 1px solid var(--border-default); background-color: var(--bg-secondary);">
+              <a href={`/posts/${project.doc.slug}`}>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  class="w-full h-48 object-cover"
+                />
+              </a>
+              <div class="p-6">
+                <div class="mb-3">
+                  <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+                    Setup Guide
+                  </span>
+                </div>
+                <h2 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                  <a href={`/posts/${project.doc.slug}`} class="hover:underline">
+                    {project.doc.data.title}
+                  </a>
+                </h2>
+                <p class="text-sm mb-4" style="color: var(--text-secondary); line-height: 1.6;">
+                  {project.doc.data.description}
+                </p>
+                <div class="flex items-center justify-between text-sm" style="color: var(--text-secondary);">
+                  <div class="flex items-center gap-3">
+                    {project.doc.data.author.avatar && (
+                      <img
+                        src={project.doc.data.author.avatar}
+                        alt={project.doc.data.author.name}
+                        class="w-12 h-12 rounded-full p-3"
+                        style="object-fit: contain; background-color: var(--bg-secondary);"
+                      />
+                    )}
+                    <span>{project.doc.data.author.name}</span>
+                  </div>
+                  <time datetime={project.doc.data.date.toISOString()}>
+                    {formatDate(project.doc.data.date)}
+                  </time>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16" style="background-color: var(--bg-secondary);">
+      <div class="content-constrained px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--text-primary);">
+          Need help with a project?
+        </h2>
+        <p class="text-lg mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
+          All projects are open source on GitHub. Feel free to open an issue or contribute!
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a
+            href="https://github.com/ry-ops"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="background-color: var(--accent-emphasis); color: white;"
+            onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+            onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+          >
+            View on GitHub
+          </a>
+          <a
+            href="/"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="border: 1px solid var(--border-default); color: var(--text-primary);"
+          >
+            Back to Blog
+          </a>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,659 @@
+@import "tailwindcss";
+
+/* GitHub Dark Theme Color System */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --content-max-width: 1280px;
+  --block-gap: 24px;
+
+  /* Dark Theme Colors - GitHub Blog Inspired */
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #21262d;
+  --bg-overlay: #30363d;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #8d96a0;
+  --text-muted: #6e7681;
+  --text-link: #0693e3;
+  --text-link-hover: #3fa9eb;
+
+  --border-default: #30363d;
+  --border-muted: #21262d;
+
+  /* GitHub Blog Accent Palette */
+  --accent-primary: #0693e3;
+  --accent-emphasis: #0582ca;
+  --accent-blue: #0693e3;
+  --accent-purple: #9b51e0;
+  --accent-green: #00d084;
+  --accent-orange: #ff6900;
+  --accent-red: #cf2e2e;
+
+  /* Typography Scale - Matching GitHub Blog */
+  --font-size-xs: 11px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 28px;
+  --font-size-4xl: 32px;
+  --font-size-5xl: 36px;
+
+  /* Line Heights - Matching GitHub Blog */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Typography Hierarchy - GitHub Blog Style */
+h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+h2 {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  margin-top: 40px;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+h5 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+h6 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--text-primary);
+}
+
+p {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--text-secondary);
+}
+
+/* Layout Constraints */
+.content-constrained {
+  max-width: var(--content-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Article Cards - Dark Theme */
+.article-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-default);
+}
+
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  border-color: var(--border-muted);
+}
+
+/* Category Badge - Dark Theme */
+.category-badge {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--bg-overlay);
+  color: var(--accent-primary);
+}
+
+/* ============================================================================
+   GITHUB BLOG ENHANCED NAVIGATION & RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* Enhanced Navigation - GitHub Blog Style */
+header {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background-color: rgba(13, 17, 23, 0.95) !important;
+  box-shadow: inset 0 -1px 0 0 var(--border-default);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+header.scrolled {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 -1px 0 0 var(--border-default);
+}
+
+/* Navigation Links - GitHub Blog Hover Effects */
+nav a {
+  position: relative;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-primary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* Mega Menu Enhancements - GitHub Blog Style */
+.mega-menu-dropdown {
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+
+.mega-menu-container {
+  background-color: rgba(22, 27, 34, 0.98) !important;
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.3),
+    0 0 0 1px var(--border-default);
+  padding: 32px;
+}
+
+.mega-menu-link {
+  padding: 12px 16px;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.mega-menu-link:hover {
+  background-color: var(--bg-tertiary);
+  border-color: var(--border-default);
+  transform: translateX(4px);
+}
+
+.mega-menu-link-name {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.2s ease;
+}
+
+.mega-menu-link:hover .mega-menu-link-name {
+  color: var(--accent-primary);
+}
+
+.mega-menu-link-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  margin-top: 4px;
+  display: block;
+}
+
+/* Featured Content in Mega Menu */
+.mega-menu-featured {
+  background: linear-gradient(135deg, rgba(5, 130, 202, 0.1) 0%, rgba(6, 147, 227, 0.05) 100%);
+  border: 1px solid rgba(6, 147, 227, 0.2);
+  border-radius: 8px;
+  padding: 20px !important;
+}
+
+.mega-menu-featured-link {
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mega-menu-featured-link:hover {
+  transform: translateY(-4px);
+}
+
+.mega-menu-featured-image {
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-default);
+}
+
+.mega-menu-featured-image img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: auto;
+}
+
+.mega-menu-featured-link:hover .mega-menu-featured-image img {
+  transform: scale(1.05);
+}
+
+.mega-menu-featured-label {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-primary);
+  margin-bottom: 8px;
+}
+
+.mega-menu-featured-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: 8px;
+}
+
+.mega-menu-featured-description {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - GITHUB BLOG BREAKPOINTS
+   ============================================================================ */
+
+/* GitHub Blog uses these breakpoints:
+   - xs: 0-543px (mobile)
+   - sm: 544-767px (tablet portrait)
+   - md: 768-1011px (tablet landscape)
+   - lg: 1012-1279px (laptop)
+   - xl: 1280px+ (desktop)
+*/
+
+/* Mobile First (xs: 0-543px) */
+@media (max-width: 543px) {
+  :root {
+    --font-size-xs: 12px; /* Increased from 11px for better readability */
+    --font-size-sm: 14px; /* Increased from 13px */
+    --font-size-base: 16px; /* Increased from 14px */
+    --font-size-md: 18px; /* Increased from 16px */
+    --font-size-5xl: 28px;
+    --font-size-4xl: 24px;
+    --font-size-3xl: 20px;
+    --font-size-2xl: 18px;
+  }
+
+  .mega-menu-container {
+    padding: 20px;
+  }
+
+  .mega-menu-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mega-menu-column {
+    width: 100% !important;
+  }
+
+  /* Better touch targets on mobile */
+  button,
+  a {
+    min-height: 44px; /* iOS recommendation for touch targets */
+  }
+
+  /* Improve spacing on mobile */
+  .content-constrained {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* Tablet Portrait (sm: 544-767px) */
+@media (min-width: 544px) and (max-width: 767px) {
+  .mega-menu-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Tablet Landscape (md: 768-1011px) */
+@media (min-width: 768px) and (max-width: 1011px) {
+  .mega-menu-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .mega-menu-featured {
+    grid-column: span 2;
+  }
+}
+
+/* Laptop (lg: 1012-1279px) */
+@media (min-width: 1012px) and (max-width: 1279px) {
+  .mega-menu-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .mega-menu-container {
+    padding: 36px;
+  }
+}
+
+/* Desktop (xl: 1280px+) */
+@media (min-width: 1280px) {
+  .mega-menu-content {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+
+  .mega-menu-container {
+    padding: 44px;
+  }
+}
+
+/* ============================================================================
+   ENHANCED SPACING & LAYOUT - GITHUB BLOG PATTERNS
+   ============================================================================ */
+
+/* GitHub Blog Spacing Scale */
+.spacing-xs { margin-bottom: 8px; }
+.spacing-sm { margin-bottom: 16px; }
+.spacing-md { margin-bottom: 24px; }
+.spacing-lg { margin-bottom: 32px; }
+.spacing-xl { margin-bottom: 48px; }
+.spacing-2xl { margin-bottom: 64px; }
+
+/* Layout Containers */
+.layout-constrained {
+  max-width: calc(1280px - var(--block-gap) * 2);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--block-gap);
+  padding-right: var(--block-gap);
+}
+
+.layout-flow > * + * {
+  margin-top: var(--block-gap);
+}
+
+/* Grid Layouts - GitHub Blog Style */
+.grid-2-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+.grid-3-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.grid-4-col {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px;
+}
+
+@media (max-width: 1011px) {
+  .grid-4-col {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid-2-col,
+  .grid-3-col,
+  .grid-4-col {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* ============================================================================
+   ENHANCED TRANSITIONS & ANIMATIONS - GITHUB BLOG STYLE
+   ============================================================================ */
+
+/* Smooth page transitions */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Button Transitions */
+button,
+.btn,
+a[class*="button"] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover,
+.btn:hover,
+a[class*="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+button:active,
+.btn:active,
+a[class*="button"]:active {
+  transform: translateY(0);
+}
+
+/* Loading Animation - GitHub Blog Style */
+@keyframes github-blog-spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: github-blog-spinner 1s linear infinite;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ============================================================================
+   ENHANCED MOBILE MENU - GITHUB BLOG STYLE
+   ============================================================================ */
+
+.mobile-menu {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(13, 17, 23, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  z-index: 40;
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.mobile-menu-content {
+  padding: 24px;
+}
+
+.mobile-menu-section {
+  border-bottom: 1px solid var(--border-default);
+  padding: 20px 0;
+}
+
+.mobile-menu-section:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-link:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-primary);
+}
+
+/* ============================================================================
+   ACCESSIBILITY - FOCUS STATES & KEYBOARD NAVIGATION
+   ============================================================================ */
+
+/* Skip to main content link for keyboard users */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent-emphasis);
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  font-weight: 600;
+}
+
+.skip-to-main:focus {
+  top: 0;
+}
+
+/* Focus visible styles for all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Focus styles for links */
+a:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+/* Focus styles for buttons */
+button:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Remove default focus ring (we're using :focus-visible) */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-primary: #ffffff;
+    --text-secondary: #c9d1d9;
+    --border-default: #0693e3;
+  }
+}
+
+/* ============================================================================
+   UTILITY CLASSES - GITHUB BLOG PATTERNS
+   ============================================================================ */
+
+/* Visibility Utilities */
+.hide-mobile { display: none; }
+.hide-tablet { display: block; }
+.hide-desktop { display: block; }
+
+@media (min-width: 768px) {
+  .hide-mobile { display: block; }
+  .hide-tablet { display: none; }
+}
+
+@media (min-width: 1012px) {
+  .hide-desktop { display: none; }
+}
+
+/* Text Utilities - GitHub Blog Style */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--text-link-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ensure text remains readable at 200% zoom */
+@media (min-width: 1280px) {
+  html {
+    font-size: 100%;
+  }
+}
+
+/* Prevent text overflow */
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Screen reader only text */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

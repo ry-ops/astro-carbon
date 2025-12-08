@@ -1,0 +1,112 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  currentSlug: string;
+  series?: string;
+}
+
+const { currentSlug, series } = Astro.props;
+
+// If no series specified, don't show the navigator
+if (!series) {
+  return null;
+}
+
+// Get all posts in this series
+const now = new Date();
+const allPosts = await getCollection('posts', ({ data }) => data.date <= now);
+const seriesPosts = allPosts
+  .filter(post => post.data.series === series)
+  .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+
+if (seriesPosts.length <= 1) {
+  return null;
+}
+
+const currentIndex = seriesPosts.findIndex(post => post.slug === currentSlug);
+const totalPosts = seriesPosts.length;
+const progress = Math.round(((currentIndex + 1) / totalPosts) * 100);
+---
+
+<div class="series-navigator rounded-lg p-6" style="background-color: var(--bg-secondary); border: 1px solid var(--border-default);">
+  <div class="mb-4">
+    <h3 class="text-lg font-bold mb-2" style="color: var(--text-primary);">
+      🎯 {series.charAt(0).toUpperCase() + series.slice(1)} Series
+    </h3>
+    <div class="flex items-center gap-2 mb-3">
+      <div class="flex-1 h-2 rounded-full" style="background-color: var(--bg-overlay);">
+        <div
+          class="h-2 rounded-full transition-all"
+          style={`background-color: var(--accent-primary); width: ${progress}%`}
+        ></div>
+      </div>
+      <span class="text-xs font-semibold whitespace-nowrap" style="color: var(--text-secondary);">
+        {currentIndex + 1} of {totalPosts}
+      </span>
+    </div>
+  </div>
+
+  <nav class="space-y-2">
+    {seriesPosts.map((post, index) => {
+      const isCurrent = post.slug === currentSlug;
+      const isPast = index < currentIndex;
+      const isFuture = index > currentIndex;
+
+      return (
+        <a
+          href={`/posts/${post.slug}`}
+          class={`series-link block px-3 py-2 rounded text-sm transition-colors ${isCurrent ? 'current' : ''}`}
+          style={isCurrent
+            ? 'background-color: var(--accent-emphasis); color: white; font-weight: 600;'
+            : 'color: var(--text-secondary);'}
+          onmouseover={!isCurrent ? "this.style.backgroundColor='var(--bg-overlay)'; this.style.color='var(--text-primary)'" : ''}
+          onmouseout={!isCurrent ? "this.style.backgroundColor='transparent'; this.style.color='var(--text-secondary)'" : ''}
+        >
+          <div class="flex items-center gap-2">
+            <span class="flex-shrink-0">
+              {isPast && '✅'}
+              {isCurrent && '📍'}
+              {isFuture && '⏭️'}
+            </span>
+            <span class="flex-1 truncate">{post.data.title}</span>
+          </div>
+        </a>
+      );
+    })}
+  </nav>
+
+  {currentIndex < totalPosts - 1 && (
+    <div class="mt-4 pt-4" style="border-top: 1px solid var(--border-default);">
+      <a
+        href={`/posts/${seriesPosts[currentIndex + 1].slug}`}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold transition-colors w-full justify-center"
+        style="background-color: var(--accent-emphasis); color: white;"
+        onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+        onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+      >
+        Next: {seriesPosts[currentIndex + 1].data.title.substring(0, 30)}...
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  )}
+</div>
+
+<style>
+  .series-link {
+    position: relative;
+  }
+
+  .series-link.current::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--accent-primary);
+    border-radius: 0 2px 2px 0;
+  }
+</style>

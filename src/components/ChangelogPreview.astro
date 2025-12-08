@@ -1,0 +1,135 @@
+---
+// What's New section - GitHub Blog newsletter style
+---
+
+<section class="changelog-section" aria-labelledby="changelog-title">
+  <div class="changelog-box">
+    <div class="changelog-text">
+      <h2 id="changelog-title" class="changelog-title">What's New</h2>
+      <p class="changelog-description">
+        Stay up to date with the latest features, improvements, and content updates.
+      </p>
+    </div>
+    <div class="changelog-actions">
+      <a href="/whats-new" class="changelog-btn-primary">
+        See What's New
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .changelog-section {
+    padding: 3rem 0 1.5rem;
+    background-color: var(--bg-primary);
+    margin: 0 -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .changelog-section {
+      margin: 0 -1.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .changelog-section {
+      margin: 0 -2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .changelog-box {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem 2.5rem;
+    background-color: #0d1117;
+    border: 2px solid var(--accent-purple);
+    border-radius: 12px;
+  }
+
+  .changelog-text {
+    flex: 1;
+  }
+
+  .changelog-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+  }
+
+  .changelog-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .changelog-actions {
+    flex-shrink: 0;
+  }
+
+  .changelog-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: white;
+    background-color: var(--accent-purple);
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .changelog-btn-primary:hover {
+    background-color: #b366e8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(155, 81, 224, 0.3);
+  }
+
+  .changelog-btn-primary svg {
+    transition: transform 0.2s ease;
+  }
+
+  .changelog-btn-primary:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .changelog-box {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .changelog-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .changelog-description {
+      font-size: var(--font-size-sm);
+    }
+
+    .changelog-btn-primary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

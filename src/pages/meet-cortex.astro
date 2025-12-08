@@ -1,0 +1,819 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+// Get all Cortex-related blog posts
+const now = new Date();
+const allPosts = await getCollection('posts', ({ data }) => data.date <= now);
+const cortexPosts = allPosts
+  .filter(post =>
+    post.data.title.toLowerCase().includes('cortex') ||
+    post.data.tags?.some(tag => tag.toLowerCase() === 'cortex')
+  )
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6); // Show latest 6 posts
+
+const capabilities = [
+  {
+    icon: '🧠',
+    title: 'Learns & Adapts',
+    description: 'Cortex continuously learns from every task, improving routing decisions and success patterns over time.'
+  },
+  {
+    icon: '⚡',
+    title: 'Unlimited Scale',
+    description: 'No artificial limits. Proven 128 simultaneous workers, configured for 10,000+. Scales infinitely based on task complexity and workload demands.'
+  },
+  {
+    icon: '🎯',
+    title: 'Intelligent Routing',
+    description: 'Advanced routing system analyzes tasks and assigns them to the most qualified specialist agents.'
+  },
+  {
+    icon: '🔄',
+    title: 'Fully Autonomous',
+    description: 'Operates independently with built-in health monitoring, self-healing, and automated recovery.'
+  },
+  {
+    icon: '🛡️',
+    title: 'Security First',
+    description: '5-layer security defense protecting against prompt injection, unauthorized access, and malicious operations.'
+  },
+  {
+    icon: '📊',
+    title: 'Complete Observability',
+    description: 'Decision tracing, behavioral monitoring, and outcome alignment. Real-time insights into why agents make specific choices and how they learn.'
+  }
+];
+
+const stats = [
+  { value: '∞', label: 'Scale Limit', sublabel: 'unlimited workers' },
+  { value: '146', label: 'Active Agents', sublabel: 'currently running' },
+  { value: '6', label: 'Master Agents', sublabel: 'specialized domains' },
+  { value: '92%', label: 'Task Success', sublabel: 'completion rate' }
+];
+
+const updateDate = 'November 30, 2025';
+---
+
+<Layout
+  title="Meet Cortex - Autonomous AI Orchestration"
+  description="Discover Cortex: A completely autonomous AI orchestration system that learns, adapts, and scales from 1 to 100+ agents on-demand. Built by ry-ops."
+>
+  <Header />
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 md:py-32" style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
+    <!-- Animated AI Topology Background -->
+    <div class="absolute inset-0 opacity-20">
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <!-- Gradient for connections -->
+          <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.6" />
+            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0.3" />
+          </linearGradient>
+
+          <!-- Glow filter for nodes -->
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- Connection lines forming neural network -->
+        <!-- Layer 1 connections -->
+        <line x1="10%" y1="20%" x2="30%" y2="40%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <line x1="10%" y1="20%" x2="30%" y2="60%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="10%" y1="80%" x2="30%" y2="40%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="10%" y1="80%" x2="30%" y2="60%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3.5s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Layer 2 connections -->
+        <line x1="30%" y1="40%" x2="50%" y2="30%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3s" repeatCount="indefinite"/>
+        </line>
+        <line x1="30%" y1="40%" x2="50%" y2="50%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <line x1="30%" y1="40%" x2="50%" y2="70%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.2;0.6;0.2" dur="5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="30%" y1="60%" x2="50%" y2="30%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.8s" repeatCount="indefinite"/>
+        </line>
+        <line x1="30%" y1="60%" x2="50%" y2="50%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.6;0.2" dur="4.2s" repeatCount="indefinite"/>
+        </line>
+        <line x1="30%" y1="60%" x2="50%" y2="70%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.3s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Layer 3 connections -->
+        <line x1="50%" y1="30%" x2="70%" y2="35%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <line x1="50%" y1="30%" x2="70%" y2="65%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="50%" y1="50%" x2="70%" y2="35%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="50%" y1="50%" x2="70%" y2="65%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="4.5s" repeatCount="indefinite"/>
+        </line>
+        <line x1="50%" y1="70%" x2="70%" y2="35%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.3">
+          <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4.8s" repeatCount="indefinite"/>
+        </line>
+        <line x1="50%" y1="70%" x2="70%" y2="65%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Layer 4 connections -->
+        <line x1="70%" y1="35%" x2="90%" y2="50%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.5">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <line x1="70%" y1="65%" x2="90%" y2="50%" stroke="url(#connectionGradient)" stroke-width="1.5" opacity="0.4">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.5s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Agent Nodes with pulsing animation -->
+        <!-- Input layer -->
+        <circle cx="10%" cy="20%" r="6" fill="#3b82f6" filter="url(#glow)">
+          <animate attributeName="r" values="5;7;5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="10%" cy="80%" r="6" fill="#3b82f6" filter="url(#glow)">
+          <animate attributeName="r" values="5;7;5" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Hidden layer 1 -->
+        <circle cx="30%" cy="40%" r="7" fill="#60a5fa" filter="url(#glow)">
+          <animate attributeName="r" values="6;8;6" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="30%" cy="60%" r="7" fill="#60a5fa" filter="url(#glow)">
+          <animate attributeName="r" values="6;8;6" dur="3.8s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Hidden layer 2 (master agents) -->
+        <circle cx="50%" cy="30%" r="8" fill="#8b5cf6" filter="url(#glow)">
+          <animate attributeName="r" values="7;9;7" dur="3.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="50%" cy="50%" r="9" fill="#a78bfa" filter="url(#glow)">
+          <animate attributeName="r" values="8;10;8" dur="4.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="50%" cy="70%" r="8" fill="#8b5cf6" filter="url(#glow)">
+          <animate attributeName="r" values="7;9;7" dur="3.7s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Hidden layer 3 (coordinators) -->
+        <circle cx="70%" cy="35%" r="7" fill="#60a5fa" filter="url(#glow)">
+          <animate attributeName="r" values="6;8;6" dur="4.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="70%" cy="65%" r="7" fill="#60a5fa" filter="url(#glow)">
+          <animate attributeName="r" values="6;8;6" dur="3.3s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Output layer (results) -->
+        <circle cx="90%" cy="50%" r="8" fill="#3b82f6" filter="url(#glow)">
+          <animate attributeName="r" values="7;9;7" dur="4s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Flowing data pulses along connections -->
+        <circle r="2" fill="#60a5fa" opacity="0.8">
+          <animateMotion dur="4s" repeatCount="indefinite" path="M 10,20 Q 20,30 30,40"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="#60a5fa" opacity="0.8">
+          <animateMotion dur="5s" repeatCount="indefinite" path="M 30,40 Q 40,35 50,30"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="5s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="#a78bfa" opacity="0.8">
+          <animateMotion dur="3.5s" repeatCount="indefinite" path="M 50,50 Q 60,47 70,35"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="#8b5cf6" opacity="0.8">
+          <animateMotion dur="4.5s" repeatCount="indefinite" path="M 70,65 Q 80,57 90,50"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="4.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="#3b82f6" opacity="0.8">
+          <animateMotion dur="4.2s" repeatCount="indefinite" path="M 10,80 Q 20,70 30,60"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="4.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle r="2" fill="#60a5fa" opacity="0.8">
+          <animateMotion dur="3.8s" repeatCount="indefinite" path="M 30,60 Q 40,55 50,50"/>
+          <animate attributeName="opacity" values="0;0.8;0" dur="3.8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <div class="content-constrained px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="mb-6">
+          <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+            Autonomous AI Orchestration
+          </span>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold mb-6" style="color: var(--text-primary);">
+          Meet Cortex
+        </h1>
+        <p class="text-xl md:text-2xl mb-8" style="color: var(--text-secondary);">
+          A completely autonomous AI orchestration system with unlimited parallel execution, real-time observability, and continuous learning. Scales from 1 agent to 10,000+ workers on-demand with 92% task success and 40-50x speed improvements.
+        </p>
+        <p class="text-lg mb-8" style="color: var(--text-secondary);">
+          No artificial limits. Production-ready with workflow automation, decision tracing, behavioral monitoring, and outcome alignment. Built autonomously, scales infinitely, learns continuously.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a
+            href="#learn-more"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="background-color: var(--accent-emphasis); color: white;"
+            onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+            onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+          >
+            Learn More
+          </a>
+          <a
+            href="#blog-posts"
+            class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+            style="border: 1px solid var(--border-default); color: var(--text-primary);"
+          >
+            Read Articles
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-12" style="background-color: var(--bg-secondary); border-top: 1px solid var(--border-default); border-bottom: 1px solid var(--border-default);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map(stat => (
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold mb-2" style="color: var(--accent-primary);">
+              {stat.value}
+            </div>
+            <div class="text-base md:text-lg font-semibold mb-1" style="color: var(--text-primary);">
+              {stat.label}
+            </div>
+            <div class="text-sm" style="color: var(--text-secondary);">
+              {stat.sublabel}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Milestone - Celebration Banner -->
+  <section class="py-16 relative overflow-hidden" style="background: linear-gradient(135deg, #1a1f35 0%, #0d1117 100%);">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 rounded-full filter blur-3xl"></div>
+    </div>
+
+    <div class="content-constrained px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-5xl mx-auto">
+        <!-- Achievement Header -->
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4" style="background-color: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3);">
+            <span class="text-2xl">🎉</span>
+            <span class="text-sm font-semibold" style="color: #60a5fa;">HISTORIC MILESTONE</span>
+          </div>
+          <h2 class="text-3xl md:text-5xl font-bold mb-4" style="color: var(--text-primary);">
+            Cortex Builds Itself in 20 Minutes
+          </h2>
+          <p class="text-lg md:text-xl mb-2" style="color: var(--text-secondary);">
+            November 27, 2025 - A landmark achievement in autonomous AI development
+          </p>
+          <p class="text-base" style="color: var(--text-secondary);">
+            4 parallel agents autonomously built production MLOps infrastructure with 100% success rate
+          </p>
+        </div>
+
+        <!-- Achievement Metrics Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div class="rounded-lg p-6 text-center backdrop-blur-sm" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-default);">
+            <div class="text-3xl font-bold mb-2" style="color: #60a5fa;">4</div>
+            <div class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Parallel Agents</div>
+            <div class="text-xs" style="color: var(--text-secondary);">Simultaneous execution</div>
+          </div>
+          <div class="rounded-lg p-6 text-center backdrop-blur-sm" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-default);">
+            <div class="text-3xl font-bold mb-2" style="color: #60a5fa;">20min</div>
+            <div class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Total Time</div>
+            <div class="text-xs" style="color: var(--text-secondary);">vs. 1-2 weeks manual</div>
+          </div>
+          <div class="rounded-lg p-6 text-center backdrop-blur-sm" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-default);">
+            <div class="text-3xl font-bold mb-2" style="color: #60a5fa;">9,650</div>
+            <div class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Lines of Code</div>
+            <div class="text-xs" style="color: var(--text-secondary);">Production-ready</div>
+          </div>
+          <div class="rounded-lg p-6 text-center backdrop-blur-sm" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-default);">
+            <div class="text-3xl font-bold mb-2" style="color: #60a5fa;">100%</div>
+            <div class="text-sm font-semibold mb-1" style="color: var(--text-primary);">Success Rate</div>
+            <div class="text-xs" style="color: var(--text-secondary);">Zero conflicts</div>
+          </div>
+        </div>
+
+        <!-- What Was Built -->
+        <div class="rounded-lg p-8 mb-8 backdrop-blur-sm" style="background-color: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-default);">
+          <h3 class="text-xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+            4 Major Systems Built Simultaneously
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="flex items-start gap-3">
+              <span class="text-2xl flex-shrink-0">🎯</span>
+              <div>
+                <div class="font-semibold mb-1" style="color: var(--text-primary);">Prompt Engineering System</div>
+                <div class="text-sm" style="color: var(--text-secondary);">16 versioned templates, A/B testing infrastructure</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl flex-shrink-0">🚀</span>
+              <div>
+                <div class="font-semibold mb-1" style="color: var(--text-primary);">Version Alias Infrastructure</div>
+                <div class="text-sm" style="color: var(--text-secondary);">Champion/Challenger/Shadow deployment</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl flex-shrink-0">🔍</span>
+              <div>
+                <div class="font-semibold mb-1" style="color: var(--text-primary);">Task Lineage Tracking</div>
+                <div class="text-sm" style="color: var(--text-secondary);">18 event types, complete visibility</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span class="text-2xl flex-shrink-0">📊</span>
+              <div>
+                <div class="font-semibold mb-1" style="color: var(--text-primary);">Production Monitoring</div>
+                <div class="text-sm" style="color: var(--text-secondary);">15 metrics, 8 alerts, real-time dashboard</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center">
+          <a
+            href="/posts/cortex-milestone-self-building-mlops"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105"
+            style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3);"
+          >
+            <span>Read the Full Story</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <p class="mt-4 text-sm" style="color: var(--text-secondary);">
+            Learn how Cortex achieved 40-50x speedup building its own infrastructure
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is Cortex -->
+  <section id="learn-more" class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center" style="color: var(--text-primary);">
+          What is Cortex?
+        </h2>
+        <div class="prose prose-lg max-w-none mb-12" style="color: var(--text-secondary);">
+          <p class="text-xl leading-relaxed mb-6">
+            Cortex is a <strong style="color: var(--text-primary);">completely autonomous AI orchestration system</strong> designed to handle complex software development tasks with minimal human intervention. Think of it as a self-managing team of AI specialists that work together seamlessly.
+          </p>
+          <p class="text-lg leading-relaxed mb-6">
+            Unlike traditional automation tools, Cortex doesn't just execute predefined workflows. It <strong style="color: var(--text-primary);">thinks, learns, and adapts</strong> in real-time, making intelligent decisions about how to approach each unique task.
+          </p>
+          <p class="text-lg leading-relaxed">
+            Built by <strong style="color: var(--text-primary);">ry-ops</strong> over 28 days with 794 commits, Cortex represents a new paradigm in AI-powered development automation.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Grid -->
+  <section class="py-16" style="background-color: var(--bg-secondary);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center" style="color: var(--text-primary);">
+        Core Capabilities
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {capabilities.map(capability => (
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <div class="text-4xl mb-4">{capability.icon}</div>
+            <h3 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">
+              {capability.title}
+            </h3>
+            <p style="color: var(--text-secondary); line-height: 1.6;">
+              {capability.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center" style="color: var(--text-primary);">
+          How It Works
+        </h2>
+
+        <div class="space-y-12">
+          <!-- Dynamic Scaling -->
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--accent-emphasis); color: white;">
+              1
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">
+                Dynamic Agent Scaling
+              </h3>
+              <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+                Cortex starts with a single coordinator agent that analyzes incoming tasks. Based on complexity and requirements, it can instantly deploy anywhere from 1 to 100+ specialized worker agents. Simple tasks might use just 2-3 agents, while complex operations automatically scale up to dozens of parallel workers.
+              </p>
+            </div>
+          </div>
+
+          <!-- Intelligent Routing -->
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--accent-emphasis); color: white;">
+              2
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">
+                Intelligent Task Routing
+              </h3>
+              <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+                Every task is analyzed and routed to the most qualified specialist. Security tasks go to the security master, development work goes to the development master, infrastructure tasks go to the CI/CD master. Each master coordinates its own pool of specialized workers.
+              </p>
+            </div>
+          </div>
+
+          <!-- Continuous Learning -->
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--accent-emphasis); color: white;">
+              3
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">
+                Continuous Learning Loop
+              </h3>
+              <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+                After every task, Cortex evaluates the outcome and updates its knowledge base. Successful patterns are reinforced, failures are analyzed, and routing confidence scores are adjusted. The system literally gets smarter with every operation.
+              </p>
+            </div>
+          </div>
+
+          <!-- Autonomous Operation -->
+          <div class="flex items-start gap-6">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold" style="background-color: var(--accent-emphasis); color: white;">
+              4
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-3" style="color: var(--text-primary);">
+                Fully Autonomous
+              </h3>
+              <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+                Cortex manages itself. Workers that fail are automatically restarted. Zombie processes are cleaned up. Resource limits are enforced. Performance metrics are tracked. Health checks run continuously. All without human intervention.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Updates: Governance & Production Readiness -->
+  <section class="py-16" style="background-color: var(--bg-secondary);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="mb-6 text-center">
+          <span class="inline-block px-4 py-2 rounded-full text-sm font-semibold" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+            Latest Update: {updateDate}
+          </span>
+        </div>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center" style="color: var(--text-primary);">
+          From Prototype to Production
+        </h2>
+        <p class="text-xl mb-12 text-center" style="color: var(--text-secondary);">
+          The day Cortex learned to respect boundaries and earned production trust.
+        </p>
+
+        <div class="space-y-12">
+          <!-- The Problem -->
+          <div class="p-8 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">
+              🚨 The Port Conflict That Changed Everything
+            </h3>
+            <p class="text-lg leading-relaxed mb-4" style="color: var(--text-secondary);">
+              A simple request sparked a revolution: <em>"Cortex should NEVER assign ports without my approval - it's conflicting with my other apps!"</em>
+            </p>
+            <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+              This wasn't just about ports. It was about trust. About autonomous systems knowing when to ask permission. About the difference between "can do anything" and "should do anything."
+            </p>
+          </div>
+
+          <!-- The Solution -->
+          <div>
+            <h3 class="text-3xl font-bold mb-6" style="color: var(--text-primary);">
+              🛡️ Production-Grade Governance Layer
+            </h3>
+            <p class="text-lg leading-relaxed mb-8" style="color: var(--text-secondary);">
+              In a single session, we built a comprehensive governance system that transforms Cortex from "move fast and break things" to "move fast with guardrails."
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border-left: 4px solid var(--accent-primary);">
+                <h4 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                  Hard Limits Enforcement
+                </h4>
+                <p style="color: var(--text-secondary);">
+                  Token budgets with 95% hard limits. Operations are blocked before they start, not after they exceed limits. No more runaway costs.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border-left: 4px solid var(--accent-primary);">
+                <h4 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                  Dangerous Operation Detection
+                </h4>
+                <p style="color: var(--text-secondary);">
+                  7 critical keywords that require human approval: port assignments, server creation, system modifications. Cortex asks permission for risky operations.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border-left: 4px solid var(--accent-primary);">
+                <h4 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                  Complete Audit Trail
+                </h4>
+                <p style="color: var(--text-secondary);">
+                  Every blocked operation logged. Every override recorded. Full transparency in an append-only audit log. Trust through visibility.
+                </p>
+              </div>
+
+              <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border-left: 4px solid var(--accent-primary);">
+                <h4 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                  Smart Documentation
+                </h4>
+                <p style="color: var(--text-secondary);">
+                  README reduced from 1,850 lines to 100. Three-tier docs: 10-minute Quick Start, Architecture Deep Dive, Operational Runbooks. Information when you need it.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Before/After -->
+          <div class="p-8 rounded-lg" style="background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); border: 1px solid var(--border-default);">
+            <h3 class="text-2xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+              The Transformation
+            </h3>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="text-lg font-bold mb-4 flex items-center gap-2" style="color: var(--text-secondary);">
+                  <span>❌</span> Before: Autonomous Chaos
+                </h4>
+                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                  <li>• Random port assignments causing conflicts</li>
+                  <li>• No cost controls, tokens spent freely</li>
+                  <li>• Operations executed without oversight</li>
+                  <li>• Documentation buried in massive files</li>
+                  <li>• No visibility into blocked operations</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="text-lg font-bold mb-4 flex items-center gap-2" style="color: var(--accent-primary);">
+                  <span>✅</span> After: Governed Autonomy
+                </h4>
+                <ul class="space-y-2 text-sm" style="color: var(--text-secondary);">
+                  <li>• Port registry with approval workflow</li>
+                  <li>• 95% token budget hard limit enforced</li>
+                  <li>• Critical operations require approval</li>
+                  <li>• Tiered docs for every skill level</li>
+                  <li>• Complete audit trail of all blocks</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Insight -->
+          <div class="p-8 rounded-lg text-center" style="background-color: var(--bg-primary); border: 2px solid var(--accent-primary);">
+            <p class="text-2xl font-bold mb-4" style="color: var(--text-primary);">
+              "The best AI systems aren't the ones that can do anything—they're the ones that know what NOT to do."
+            </p>
+            <p class="text-lg" style="color: var(--text-secondary);">
+              Trust comes from transparency. Every decision is logged. Every boundary is respected. Every operation is explainable.
+            </p>
+          </div>
+
+          <!-- Results -->
+          <div>
+            <h3 class="text-3xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+              📊 Measurable Impact
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="text-center p-4 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+                <div class="text-3xl font-bold mb-2" style="color: var(--accent-primary);">95%</div>
+                <div class="text-sm" style="color: var(--text-secondary);">Token Budget Limit</div>
+              </div>
+              <div class="text-center p-4 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+                <div class="text-3xl font-bold mb-2" style="color: var(--accent-primary);">7</div>
+                <div class="text-sm" style="color: var(--text-secondary);">Dangerous Keywords</div>
+              </div>
+              <div class="text-center p-4 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+                <div class="text-3xl font-bold mb-2" style="color: var(--accent-primary);">100%</div>
+                <div class="text-sm" style="color: var(--text-secondary);">Operations Audited</div>
+              </div>
+              <div class="text-center p-4 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+                <div class="text-3xl font-bold mb-2" style="color: var(--accent-primary);">-95%</div>
+                <div class="text-sm" style="color: var(--text-secondary);">README Size</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Simplification -->
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-2xl font-bold mb-4" style="color: var(--text-primary);">
+              🧹 Fighting Complexity Creep
+            </h3>
+            <p class="text-lg leading-relaxed mb-4" style="color: var(--text-secondary);">
+              As Cortex grew, so did the clutter. We've cleaned up 56 empty directories, removed dead code, and analyzed 162,148 lines across 6,865 files to identify what can be simplified.
+            </p>
+            <p class="text-lg leading-relaxed" style="color: var(--text-secondary);">
+              The goal: Keep what works, remove what doesn't. Use data to guide architecture decisions. Sometimes the best code is the code you delete.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases -->
+  <section class="py-16" style="background-color: var(--bg-primary);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center" style="color: var(--text-primary);">
+          What Can Cortex Do?
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+              🔒 Security Operations
+            </h3>
+            <p style="color: var(--text-secondary);">
+              Vulnerability scanning, CVE remediation, dependency audits, compliance monitoring, and automated security fixes.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+              💻 Development Tasks
+            </h3>
+            <p style="color: var(--text-secondary);">
+              Feature implementation, bug fixes, code refactoring, optimization, and technical debt reduction.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+              🚀 CI/CD Automation
+            </h3>
+            <p style="color: var(--text-secondary);">
+              Build orchestration, test automation, deployment strategies, release workflows, and pipeline optimization.
+            </p>
+          </div>
+
+          <div class="p-6 rounded-lg" style="background-color: var(--bg-primary); border: 1px solid var(--border-default);">
+            <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+              📚 Repository Management
+            </h3>
+            <p style="color: var(--text-secondary);">
+              Discovery, cataloging, documentation generation, dependency tracking, and health monitoring.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section id="blog-posts" class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 text-center" style="color: var(--text-primary);">
+        Latest Articles
+      </h2>
+      <p class="text-lg mb-12 text-center max-w-2xl mx-auto" style="color: var(--text-secondary);">
+        Dive deeper into Cortex's development, architecture, and capabilities through our detailed blog posts.
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {cortexPosts.map(post => (
+          <a
+            href={`/posts/${post.slug}`}
+            class="group block rounded-lg overflow-hidden transition-transform hover:-translate-y-1"
+            style="background-color: var(--bg-secondary); border: 1px solid var(--border-default);"
+          >
+            {(post.data.hero?.image || post.data.image) && (
+              <div class="aspect-video overflow-hidden">
+                <img
+                  src={post.data.hero?.image || post.data.image}
+                  alt={post.data.title}
+                  class="w-full h-full object-cover transition-transform group-hover:scale-105"
+                />
+              </div>
+            )}
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xs font-semibold px-2 py-1 rounded" style="background-color: var(--bg-overlay); color: var(--accent-primary);">
+                  {post.data.category}
+                </span>
+                <time class="text-xs" style="color: var(--text-secondary);">
+                  {post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </time>
+              </div>
+              <h3 class="text-xl font-bold mb-2 group-hover:underline" style="color: var(--text-primary);">
+                {post.data.title}
+              </h3>
+              <p class="text-sm" style="color: var(--text-secondary);">
+                {post.data.description}
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="text-center mt-16">
+        <a
+          href="/posts"
+          class="inline-flex items-center px-6 py-3 rounded-md font-semibold transition-colors"
+          style="background-color: var(--accent-emphasis); color: white;"
+          onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+          onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+        >
+          View All Posts
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 md:py-32" style="background-color: var(--bg-secondary);">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: var(--text-primary);">
+          Ready to Dive Deeper?
+        </h2>
+        <p class="text-xl mb-6 leading-relaxed" style="color: var(--text-secondary);">
+          Cortex orchestrates unlimited AI agents with complete observability, achieving 92% task success. Currently running 146 active workers with proven capacity for 10,000+ simultaneous operations.
+        </p>
+        <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-secondary);">
+          Explore the architecture, production metrics, massive parallel execution, decision tracing, behavioral monitoring, and lessons learned from building an autonomous AI system that continuously learns and scales infinitely.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <a
+            href="/posts?tag=cortex"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all transform hover:scale-105"
+            style="background-color: var(--accent-emphasis); color: white; box-shadow: 0 4px 14px rgba(59, 130, 246, 0.25);"
+          >
+            <span>Explore Cortex Articles</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a
+            href="https://github.com/ry-ops"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-lg font-semibold text-lg transition-all"
+            style="border: 2px solid var(--border-default); color: var(--text-primary);"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>View on GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

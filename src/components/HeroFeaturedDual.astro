@@ -1,0 +1,247 @@
+---
+interface FeaturedPost {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  author?: {
+    name: string;
+    avatar?: string;
+  };
+  image?: string;
+  href: string;
+}
+
+interface Props {
+  posts: [FeaturedPost, FeaturedPost];
+}
+
+const { posts } = Astro.props;
+const [primary, secondary] = posts;
+---
+
+<section class="hero-dual" aria-label="Featured articles">
+  <div class="hero-dual-grid">
+    <!-- Primary (larger) featured post -->
+    <a href={primary.href} class="hero-card hero-card-primary">
+      <div class="hero-card-image">
+        {primary.image && (
+          <img
+            src={primary.image}
+            alt=""
+            role="presentation"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        )}
+      </div>
+      <div class="hero-card-content">
+        <span class="hero-card-category">{primary.category}</span>
+        <h2 class="hero-card-title">{primary.title}</h2>
+        <p class="hero-card-description">{primary.description}</p>
+        {primary.author && (
+          <div class="hero-card-meta">
+            {primary.author.avatar && (
+              <img src={primary.author.avatar} alt="" class="hero-card-avatar" />
+            )}
+            <span class="hero-card-author">{primary.author.name}</span>
+            <span class="hero-card-separator">•</span>
+            <time>{primary.date}</time>
+          </div>
+        )}
+      </div>
+    </a>
+
+    <!-- Secondary featured post -->
+    <a href={secondary.href} class="hero-card hero-card-secondary">
+      <div class="hero-card-image">
+        {secondary.image && (
+          <img
+            src={secondary.image}
+            alt=""
+            role="presentation"
+            loading="eager"
+            decoding="async"
+          />
+        )}
+      </div>
+      <div class="hero-card-content">
+        <span class="hero-card-category">{secondary.category}</span>
+        <h2 class="hero-card-title">{secondary.title}</h2>
+        <p class="hero-card-description">{secondary.description}</p>
+        {secondary.author && (
+          <div class="hero-card-meta">
+            {secondary.author.avatar && (
+              <img src={secondary.author.avatar} alt="" class="hero-card-avatar" />
+            )}
+            <span class="hero-card-author">{secondary.author.name}</span>
+            <span class="hero-card-separator">•</span>
+            <time>{secondary.date}</time>
+          </div>
+        )}
+      </div>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero-dual {
+    margin-bottom: 3rem;
+  }
+
+  .hero-dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .hero-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .hero-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-color: var(--border-muted);
+  }
+
+  .hero-card:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .hero-card-image {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+  }
+
+  .hero-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .hero-card:hover .hero-card-image img {
+    transform: scale(1.03);
+  }
+
+  .hero-card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .hero-card-category {
+    display: inline-block;
+    width: fit-content;
+    padding: 0.25rem 0.75rem;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    background-color: var(--bg-overlay);
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-card-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    transition: color 0.2s ease;
+  }
+
+  .hero-card:hover .hero-card-title {
+    color: var(--accent-primary);
+  }
+
+  .hero-card-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-top: auto;
+  }
+
+  .hero-card-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: var(--bg-overlay);
+    padding: 0.35rem;
+  }
+
+  .hero-card-author {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .hero-card-separator {
+    color: var(--text-muted);
+  }
+
+  /* Primary card - slightly larger title */
+  .hero-card-primary .hero-card-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  /* Responsive */
+  @media (max-width: 1023px) {
+    .hero-dual-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .hero-card-primary .hero-card-title {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-card-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .hero-card-primary .hero-card-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .hero-card-content {
+      padding: 1rem;
+    }
+  }
+</style>

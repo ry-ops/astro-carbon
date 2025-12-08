@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Manage Cookies - ry-ops" description="Cookie policy and preferences for the ry-ops blog">
+  <Header />
+
+  <article class="py-16">
+    <div class="content-constrained px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm mb-6" style="color: var(--text-secondary);">
+          <a href="/" class="hover:underline">Home</a>
+          <span>→</span>
+          <span style="color: var(--text-primary);">Manage Cookies</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-12">
+          <h1 class="text-5xl font-bold mb-4" style="color: var(--text-primary);">
+            Manage Cookies
+          </h1>
+          <p class="text-lg" style="color: var(--text-secondary);">
+            Last updated: January 1, 2025
+          </p>
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-invert prose-lg max-w-none" style="color: var(--text-secondary);">
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            What Are Cookies?
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide information to the owners of the site.
+          </p>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            How We Use Cookies
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            We use cookies for the following purposes:
+          </p>
+
+          <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.75em;">
+            Essential Cookies
+          </h3>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences or filling in forms.
+          </p>
+
+          <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.75em;">
+            Analytics Cookies
+          </h3>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.
+          </p>
+
+          <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.75em;">
+            Functionality Cookies
+          </h3>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third party providers whose services we have added to our pages.
+          </p>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Cookie Preferences
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            You can control and manage cookies in various ways. Please keep in mind that removing or blocking cookies can impact your user experience and some functionality may no longer be available.
+          </p>
+
+          <!-- Cookie Preferences Panel -->
+          <div id="cookie-preferences" class="my-8 p-6 rounded-lg" style="background-color: var(--bg-secondary); border: 1px solid var(--border-default);">
+            <h3 style="color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-top: 0; margin-bottom: 1em;">
+              Your Cookie Preferences
+            </h3>
+
+            <div class="space-y-4">
+              <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--border-default);">
+                <div>
+                  <div style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25em;">Essential Cookies</div>
+                  <div style="color: var(--text-secondary); font-size: 0.875rem;">Required for basic site functionality</div>
+                </div>
+                <div style="color: var(--text-secondary); font-size: 0.875rem;">Always Active</div>
+              </div>
+
+              <div class="flex items-center justify-between py-3" style="border-bottom: 1px solid var(--border-default);">
+                <div>
+                  <div style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25em;">Analytics Cookies</div>
+                  <div style="color: var(--text-secondary); font-size: 0.875rem;">Help us improve our website</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="analytics-cookies" class="sr-only peer" checked>
+                  <div class="w-11 h-6 rounded-full peer peer-focus:ring-2 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style="background-color: var(--bg-overlay); peer-checked:background-color: var(--accent-primary);"></div>
+                </label>
+              </div>
+
+              <div class="flex items-center justify-between py-3">
+                <div>
+                  <div style="color: var(--text-primary); font-weight: 600; margin-bottom: 0.25em;">Functionality Cookies</div>
+                  <div style="color: var(--text-secondary); font-size: 0.875rem;">Enable enhanced features and personalization</div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="functionality-cookies" class="sr-only peer" checked>
+                  <div class="w-11 h-6 rounded-full peer peer-focus:ring-2 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all" style="background-color: var(--bg-overlay); peer-checked:background-color: var(--accent-primary);"></div>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-6 flex gap-4">
+              <button
+                id="save-preferences"
+                class="px-6 py-3 rounded-md font-semibold transition-colors"
+                style="background-color: var(--accent-emphasis); color: white;"
+                onmouseover="this.style.backgroundColor='var(--accent-primary)'"
+                onmouseout="this.style.backgroundColor='var(--accent-emphasis)'"
+              >
+                Save Preferences
+              </button>
+              <button
+                id="accept-all"
+                class="px-6 py-3 rounded-md font-semibold transition-colors"
+                style="border: 1px solid var(--border-default); color: var(--text-primary);"
+              >
+                Accept All
+              </button>
+            </div>
+          </div>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Managing Cookies in Your Browser
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            Most web browsers allow you to control cookies through their settings. To find out more about cookies, including how to see what cookies have been set and how to manage and delete them, visit:
+          </p>
+          <ul style="margin: 1.5em 0; padding-left: 1.5em;">
+            <li style="margin: 0.5em 0;"><a href="https://www.allaboutcookies.org/" target="_blank" rel="noopener noreferrer" style="color: var(--text-link); text-decoration: none;">allaboutcookies.org</a></li>
+            <li style="margin: 0.5em 0;"><a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer" style="color: var(--text-link); text-decoration: none;">youronlinechoices.com</a></li>
+          </ul>
+
+          <h2 style="color: var(--text-primary); font-size: 2rem; font-weight: 700; margin-top: 2em; margin-bottom: 0.75em; border-bottom: 1px solid var(--border-default); padding-bottom: 0.5em;">
+            Contact Us
+          </h2>
+          <p style="line-height: 1.75; margin: 1.25em 0;">
+            If you have any questions about our use of cookies, please contact us through <a href="https://github.com/ry-ops" target="_blank" rel="noopener noreferrer" style="color: var(--text-link); text-decoration: none;">GitHub</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Cookie preferences functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const saveBtn = document.getElementById('save-preferences');
+    const acceptAllBtn = document.getElementById('accept-all');
+    const analyticsCookies = document.getElementById('analytics-cookies') as HTMLInputElement;
+    const functionalityCookies = document.getElementById('functionality-cookies') as HTMLInputElement;
+
+    // Load saved preferences
+    const loadPreferences = () => {
+      const analytics = localStorage.getItem('cookies-analytics') !== 'false';
+      const functionality = localStorage.getItem('cookies-functionality') !== 'false';
+
+      if (analyticsCookies) analyticsCookies.checked = analytics;
+      if (functionalityCookies) functionalityCookies.checked = functionality;
+    };
+
+    // Save preferences
+    const savePreferences = () => {
+      if (analyticsCookies && functionalityCookies) {
+        localStorage.setItem('cookies-analytics', analyticsCookies.checked.toString());
+        localStorage.setItem('cookies-functionality', functionalityCookies.checked.toString());
+        alert('Your cookie preferences have been saved.');
+      }
+    };
+
+    // Accept all cookies
+    const acceptAll = () => {
+      if (analyticsCookies && functionalityCookies) {
+        analyticsCookies.checked = true;
+        functionalityCookies.checked = true;
+        savePreferences();
+      }
+    };
+
+    loadPreferences();
+
+    if (saveBtn) saveBtn.addEventListener('click', savePreferences);
+    if (acceptAllBtn) acceptAllBtn.addEventListener('click', acceptAll);
+  });
+</script>
+
+<style>
+  .peer:checked ~ div {
+    background-color: var(--accent-primary);
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+interface Props {
+  username?: string;
+}
+
+const { username = "ryops" } = Astro.props;
+---
+
+<div class="kofi-support rounded-lg overflow-hidden" style="background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a1625 100%); border: 1px solid var(--border-default);">
+  <!-- Animated SVG Header -->
+  <div class="relative h-32 overflow-hidden">
+    <svg viewBox="0 0 320 128" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <!-- Gradient for steam -->
+        <linearGradient id="steamGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#ff5e5b" stop-opacity="0.8"/>
+          <stop offset="100%" stop-color="#ff5e5b" stop-opacity="0"/>
+        </linearGradient>
+
+        <!-- Coffee gradient -->
+        <linearGradient id="coffeeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#8b5a2b"/>
+          <stop offset="100%" stop-color="#5c3d1e"/>
+        </linearGradient>
+
+        <!-- Cup gradient -->
+        <linearGradient id="cupGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#e8e8e8"/>
+        </linearGradient>
+
+        <!-- Heart gradient -->
+        <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff6b6b"/>
+          <stop offset="100%" stop-color="#ff5e5b"/>
+        </linearGradient>
+
+        <!-- Sparkle filter -->
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- Background circles -->
+      <circle cx="50" cy="64" r="80" fill="#ff5e5b" opacity="0.05" class="pulse-slow"/>
+      <circle cx="270" cy="64" r="60" fill="#ff5e5b" opacity="0.05" class="pulse-slow" style="animation-delay: -1s;"/>
+
+      <!-- Floating particles -->
+      <g class="particles">
+        <circle cx="40" cy="30" r="2" fill="#ff5e5b" opacity="0.6" class="float-particle" style="animation-delay: 0s;"/>
+        <circle cx="90" cy="20" r="1.5" fill="#ff5e5b" opacity="0.4" class="float-particle" style="animation-delay: -0.5s;"/>
+        <circle cx="230" cy="25" r="2" fill="#ff5e5b" opacity="0.5" class="float-particle" style="animation-delay: -1s;"/>
+        <circle cx="280" cy="35" r="1.5" fill="#ff5e5b" opacity="0.4" class="float-particle" style="animation-delay: -1.5s;"/>
+        <circle cx="140" cy="15" r="1" fill="#ff5e5b" opacity="0.3" class="float-particle" style="animation-delay: -2s;"/>
+      </g>
+
+      <!-- Coffee Cup -->
+      <g transform="translate(120, 28)">
+        <!-- Cup body -->
+        <path d="M10 30 L10 70 Q10 85 40 85 Q70 85 70 70 L70 30 Z" fill="url(#cupGradient)" class="cup-body"/>
+
+        <!-- Cup handle -->
+        <path d="M70 40 Q90 40 90 55 Q90 70 70 70" fill="none" stroke="url(#cupGradient)" stroke-width="8" stroke-linecap="round"/>
+
+        <!-- Coffee inside -->
+        <path d="M15 35 L15 68 Q15 80 40 80 Q65 80 65 68 L65 35 Z" fill="url(#coffeeGradient)" class="coffee-fill"/>
+
+        <!-- Coffee surface shine -->
+        <ellipse cx="40" cy="35" rx="23" ry="5" fill="#a0714a" opacity="0.5"/>
+
+        <!-- Steam wisps -->
+        <g class="steam">
+          <path d="M25 25 Q22 15 28 5" fill="none" stroke="url(#steamGradient)" stroke-width="3" stroke-linecap="round" class="steam-wisp" style="animation-delay: 0s;"/>
+          <path d="M40 22 Q43 12 37 2" fill="none" stroke="url(#steamGradient)" stroke-width="3" stroke-linecap="round" class="steam-wisp" style="animation-delay: -0.7s;"/>
+          <path d="M55 25 Q58 15 52 5" fill="none" stroke="url(#steamGradient)" stroke-width="3" stroke-linecap="round" class="steam-wisp" style="animation-delay: -1.4s;"/>
+        </g>
+
+        <!-- Heart on cup -->
+        <g transform="translate(30, 50)" class="heart-beat">
+          <path d="M10 5 Q10 0 5 0 Q0 0 0 5 Q0 10 10 18 Q20 10 20 5 Q20 0 15 0 Q10 0 10 5" fill="url(#heartGradient)" filter="url(#glow)"/>
+        </g>
+      </g>
+
+      <!-- Sparkles -->
+      <g class="sparkles" filter="url(#glow)">
+        <polygon points="200,20 202,26 208,26 203,30 205,36 200,32 195,36 197,30 192,26 198,26" fill="#ffd700" class="sparkle" style="animation-delay: 0s;"/>
+        <polygon points="250,50 251,54 255,54 252,56 253,60 250,58 247,60 248,56 245,54 249,54" fill="#ffd700" class="sparkle" style="animation-delay: -0.5s;" transform="scale(0.7)"/>
+        <polygon points="95,45 96,49 100,49 97,51 98,55 95,53 92,55 93,51 90,49 94,49" fill="#ffd700" class="sparkle" style="animation-delay: -1s;" transform="scale(0.8)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 text-center">
+    <h3 class="font-bold mb-2" style="font-size: var(--font-size-lg); color: var(--text-primary);">
+      Support My Work
+    </h3>
+    <p class="mb-4" style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">
+      If you find my content helpful, consider buying me a coffee!
+    </p>
+
+    <!-- Ko-fi Button -->
+    <a
+      href={`https://ko-fi.com/${username}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="kofi-button inline-flex items-center justify-center gap-2 w-full px-4 py-3 rounded-lg font-semibold transition-all"
+    >
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/>
+      </svg>
+      Buy me a Coffee
+    </a>
+  </div>
+</div>
+
+<style>
+  .kofi-button {
+    background: linear-gradient(135deg, #ff5e5b 0%, #ff4444 100%);
+    color: white;
+    box-shadow: 0 4px 14px rgba(255, 94, 91, 0.3);
+  }
+
+  .kofi-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.4);
+  }
+
+  /* Steam animation */
+  .steam-wisp {
+    animation: steam-rise 2s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+
+  @keyframes steam-rise {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(0) scaleY(0.5);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateY(-5px) scaleY(1);
+    }
+  }
+
+  /* Heart beat animation */
+  .heart-beat {
+    animation: heartbeat 1.5s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% {
+      transform: translate(30px, 50px) scale(1);
+    }
+    15% {
+      transform: translate(30px, 50px) scale(1.15);
+    }
+    30% {
+      transform: translate(30px, 50px) scale(1);
+    }
+    45% {
+      transform: translate(30px, 50px) scale(1.1);
+    }
+  }
+
+  /* Floating particles */
+  .float-particle {
+    animation: float-up 4s ease-in-out infinite;
+  }
+
+  @keyframes float-up {
+    0%, 100% {
+      transform: translateY(0);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateY(-10px);
+      opacity: 0.7;
+    }
+  }
+
+  /* Sparkle animation */
+  .sparkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Pulse animation for background circles */
+  .pulse-slow {
+    animation: pulse-bg 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse-bg {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.05;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 0.1;
+    }
+  }
+
+  /* Cup subtle hover effect */
+  .cup-body {
+    transition: transform 0.3s ease;
+  }
+
+  .kofi-support:hover .cup-body {
+    transform: translateY(-2px);
+  }
+</style>

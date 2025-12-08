@@ -1,0 +1,346 @@
+---
+interface FeaturedPost {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  author?: {
+    name: string;
+    avatar?: string;
+  };
+  image?: string;
+  href: string;
+}
+
+interface Props {
+  posts: FeaturedPost[];
+}
+
+const { posts } = Astro.props;
+const [primary, ...secondary] = posts;
+const secondaryPosts = secondary.slice(0, 4);
+---
+
+<section class="hero-featured" aria-label="Featured articles">
+  <div class="hero-grid">
+    <!-- Left: 1 large featured post -->
+    <a href={primary.href} class="hero-primary">
+      <div class="hero-primary-image">
+        {primary.image && (
+          <img
+            src={primary.image}
+            alt=""
+            role="presentation"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        )}
+      </div>
+      <div class="hero-primary-content">
+        <span class="hero-category">{primary.category}</span>
+        <h2 class="hero-primary-title">{primary.title}</h2>
+        <p class="hero-primary-description">{primary.description}</p>
+        {primary.author && (
+          <div class="hero-meta">
+            {primary.author.avatar && (
+              <img src={primary.author.avatar} alt="" class="hero-avatar" />
+            )}
+            <span class="hero-author">{primary.author.name}</span>
+            <span class="hero-separator">·</span>
+            <time>{primary.date}</time>
+          </div>
+        )}
+      </div>
+    </a>
+
+    <!-- Right: 4 small posts stacked -->
+    <div class="hero-secondary-stack">
+      {secondaryPosts.map((post) => (
+        <a href={post.href} class="hero-secondary">
+          <div class="hero-secondary-image">
+            {post.image && (
+              <img
+                src={post.image}
+                alt=""
+                role="presentation"
+                loading="eager"
+                decoding="async"
+              />
+            )}
+          </div>
+          <div class="hero-secondary-content">
+            <span class="hero-category">{post.category}</span>
+            <h3 class="hero-secondary-title">{post.title}</h3>
+            {post.author && (
+              <div class="hero-meta">
+                <span class="hero-author">{post.author.name}</span>
+                <span class="hero-separator">·</span>
+                <time>{post.date}</time>
+              </div>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-featured {
+    margin-bottom: 3rem;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  /* Primary card - large */
+  .hero-primary {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .hero-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-primary);
+  }
+
+  .hero-primary:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .hero-primary-image {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 200px;
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+  }
+
+  .hero-primary-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .hero-primary:hover .hero-primary-image img {
+    transform: scale(1.03);
+  }
+
+  .hero-primary-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .hero-primary-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    transition: color 0.2s ease;
+  }
+
+  .hero-primary:hover .hero-primary-title {
+    color: var(--accent-primary);
+  }
+
+  .hero-primary-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Secondary stack - right side */
+  .hero-secondary-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .hero-secondary {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-default);
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .hero-secondary:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+    transform: translateX(4px);
+  }
+
+  .hero-secondary:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+  }
+
+  .hero-secondary-image {
+    width: 140px;
+    height: 90px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: var(--bg-tertiary);
+    flex-shrink: 0;
+  }
+
+  .hero-secondary-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .hero-secondary:hover .hero-secondary-image img {
+    transform: scale(1.05);
+  }
+
+  .hero-secondary-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .hero-secondary-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    transition: color 0.2s ease;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .hero-secondary:hover .hero-secondary-title {
+    color: var(--accent-primary);
+  }
+
+  /* Shared styles */
+  .hero-category {
+    display: inline-block;
+    width: fit-content;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: auto;
+  }
+
+  .hero-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: contain;
+    background-color: var(--bg-overlay);
+    padding: 0.25rem;
+  }
+
+  .hero-author {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .hero-separator {
+    color: var(--text-muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 1023px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .hero-primary-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-secondary-stack {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .hero-secondary {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .hero-secondary-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .hero-secondary-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-secondary {
+      grid-template-columns: 100px 1fr;
+      gap: 1rem;
+    }
+
+    .hero-secondary-image {
+      width: 100px;
+      height: 65px;
+      aspect-ratio: auto;
+    }
+
+    .hero-primary-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .hero-primary-content {
+      padding: 1rem;
+    }
+  }
+</style>
