@@ -2,7 +2,7 @@
 title: "Welcome to Astro Carbon"
 description: "Get started with your new GitHub-inspired dark theme for Astro"
 date: 2025-01-01T14:00:00.000Z
-category: engineering
+category: Tutorials
 author: Your Name
 tags:
   - Astro

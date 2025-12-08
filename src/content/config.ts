@@ -6,20 +6,20 @@ const postsCollection = defineCollection({
     title: z.string(),
     description: z.string(),
     category: z.enum([
-      'AI & ML',
-      'Developer skills',
+      'Tutorials',
+      'Guides',
       'Engineering',
-      'Enterprise software',
-      'News & insights',
+      'News',
       'Open Source',
-      'Security',
-      'Docs',
-    ]),
+    ]).transform(val => val.toLowerCase()).or(z.string()),
     date: z.date(),
-    author: z.object({
-      name: z.string(),
-      avatar: z.string().optional(),
-    }),
+    author: z.union([
+      z.string(),
+      z.object({
+        name: z.string(),
+        avatar: z.string().optional(),
+      }),
+    ]),
     /**
      * @deprecated Use `hero.image` instead
      * Legacy image field - kept for backward compatibility with older posts

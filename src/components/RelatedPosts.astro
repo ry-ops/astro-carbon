@@ -10,10 +10,10 @@ interface Props {
 
 const { currentSlug, currentCategory, currentTags = [], limit = 3 } = Astro.props;
 
-// Get all posts except current and docs, excluding future posts
+// Get all posts except current, excluding future posts
 const now = new Date();
 const allPosts = await getCollection('posts', ({ data, slug }) => {
-  return slug !== currentSlug && data.category !== 'Docs' && data.date <= now;
+  return slug !== currentSlug && data.date <= now;
 });
 
 // Score posts by relevance

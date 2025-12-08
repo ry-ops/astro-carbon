@@ -4,9 +4,6 @@ import MegaMenu from './MegaMenu.astro';
 
 const navItems = [
   { name: 'Changelog', href: '/changelog' },
-  { name: 'Docs', href: '/docs' },
-  { name: 'Prompt Library', href: '/prompt-library' },
-  { name: 'Meet Cortex', href: '/meet-cortex' },
 ];
 
 // Get all category links from config (for mobile menu)
@@ -82,13 +79,6 @@ const categories = getAllCategoryLinks();
         >
           Try DriveIQ
         </a>
-        <a
-          href="/whats-new"
-          class="hidden md:inline-flex font-semibold transition-colors whitespace-nowrap header-cta-secondary"
-          style="font-size: var(--font-size-base); color: var(--text-link);"
-        >
-          See what's new
-        </a>
 
         <!-- Mobile Menu Button -->
         <button
@@ -148,13 +138,6 @@ const categories = getAllCategoryLinks();
             style="font-size: var(--font-size-base); background-color: var(--accent-emphasis); color: white;"
           >
             Try DriveIQ
-          </a>
-          <a
-            href="/whats-new"
-            class="block mx-4 px-4 py-2 font-semibold text-center transition-colors mobile-cta-secondary"
-            style="font-size: var(--font-size-base); color: var(--text-link);"
-          >
-            See what's new
           </a>
         </div>
       </nav>
