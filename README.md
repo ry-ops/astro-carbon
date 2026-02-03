@@ -1,5 +1,10 @@
 # Astro Carbon
 
+[\![Version](https://img.shields.io/github/v/release/ry-ops/astro-carbon?style=flat-square)](https://github.com/ry-ops/astro-carbon/releases)
+[\![License](https://img.shields.io/github/license/ry-ops/astro-carbon?style=flat-square)](LICENSE)
+[\![Astro](https://img.shields.io/badge/Astro-Theme-FF5D01?style=flat-square&logo=astro&logoColor=white)](https://astro.build)
+
+
 A GitHub Blog-inspired dark theme for Astro. Clean, professional, and built for developer blogs.
 
 ![Astro Carbon Theme](./preview.png)
